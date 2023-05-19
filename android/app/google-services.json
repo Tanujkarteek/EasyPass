@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "493365322260",
+    "project_id": "easypass-bbe87",
+    "storage_bucket": "easypass-bbe87.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:493365322260:android:a964e63cdfc3749fa7bd01",
+        "android_client_info": {
+          "package_name": "com.example.easypass"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "493365322260-rurtnrrk08s7dsqpq1v6an3mf5np8cjo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdRLJDaUSLMlfXBKEVW6kSppmdwXiVoH4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "493365322260-rurtnrrk08s7dsqpq1v6an3mf5np8cjo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
