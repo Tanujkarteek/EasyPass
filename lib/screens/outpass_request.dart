@@ -1,0 +1,597 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, use_key_in_widget_constructors, non_constant_identifier_names
+import 'package:easypass/screens/stud_dashboard.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import '../components/frostedglass.dart';
+//import 'package:intl/intl.dart';
+
+class RequestPage extends StatefulWidget {
+  @override
+  State<RequestPage> createState() => _RequestPageState();
+}
+
+class _RequestPageState extends State<RequestPage> {
+  final TextEditingController _date = TextEditingController();
+  final TextEditingController _leavetime = TextEditingController();
+  final TextEditingController _intime = TextEditingController();
+  final TextEditingController _place = TextEditingController();
+  final TextEditingController _warden = TextEditingController();
+  final TextEditingController _purpose = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    //String selectedOption = "Place";
+
+    List<String> places = [
+      'Place',
+      'Pala, In',
+      'Kottayam, In',
+      'Kochi, In',
+    ];
+
+    List<String> wardens = [
+      'Designated Warden',
+      'Dr. Bhanu',
+      'Dr. Santosh',
+      'Dr. Keshabh Nath',
+    ];
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          elevation: 10.0,
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const StudDash(),
+            ),
+          ),
+          backgroundColor: Color.fromRGBO(0, 27, 45, 1),
+          child: Icon(
+            Icons.close,
+            shadows: [
+              Shadow(
+                offset: Offset(2, 2),
+                blurRadius: 10.0,
+                color: Color.fromRGBO(0, 27, 45, 1),
+              ),
+            ],
+            size: MediaQuery.of(context).size.width * 0.1,
+            color: Colors.white,
+          ),
+        ),
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          toolbarHeight: MediaQuery.of(context).size.height * 0.1,
+          backgroundColor: Color.fromRGBO(0, 146, 121, 1),
+          elevation: 0.0,
+          title: Padding(
+            padding: const EdgeInsets.only(left: 6.0),
+            child: RichText(
+              text: TextSpan(
+                children: const <TextSpan>[
+                  TextSpan(
+                    text: 'Hi, ',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 30,
+                      fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  TextSpan(
+                    text: "Tanuj",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 30,
+                      fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          actions: <Widget>[
+            IconButton(
+              onPressed: () => {
+                Navigator.popAndPushNamed(context, '/welcome'),
+                FirebaseAuth.instance.signOut(),
+              },
+              icon: Icon(
+                Icons.circle,
+                color: Colors.white,
+                size: MediaQuery.of(context).size.width * 0.18,
+              ),
+            ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.12,
+            ),
+          ],
+        ),
+        body: NotificationListener<OverscrollIndicatorNotification>(
+          onNotification: (OverscrollIndicatorNotification overscroll) {
+            overscroll.disallowIndicator();
+            return false;
+          },
+          child: SafeArea(
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Color.fromRGBO(0, 146, 121, 1),
+                    Color.fromRGBO(173, 224, 129, 1)
+                  ],
+                ),
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  //width: MediaQuery.of(context).size.width,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    // SizedBox(
+                    //   height: MediaQuery.of(context).size.height * 0.03,
+                    // ),
+                    // Container(
+                    //   width: MediaQuery.of(context).size.width,
+                    //   child: Row(
+                    //     children: <Widget>[
+                    //       SizedBox(
+                    //         width: MediaQuery.of(context).size.width * 0.05,
+                    //       ),
+                    //       RichText(
+                    //         text: TextSpan(
+                    //           children: const <TextSpan>[
+                    //             TextSpan(
+                    //               text: 'Hi, ',
+                    //               style: TextStyle(
+                    //                 color: Colors.white,
+                    //                 fontSize: 30,
+                    //                 fontFamily: 'Montserrat',
+                    //                 fontWeight: FontWeight.w400,
+                    //               ),
+                    //             ),
+                    //             TextSpan(
+                    //               text: "Tanuj",
+                    //               style: TextStyle(
+                    //                 color: Colors.white,
+                    //                 fontSize: 30,
+                    //                 fontFamily: 'Montserrat',
+                    //                 fontWeight: FontWeight.w800,
+                    //               ),
+                    //             ),
+                    //           ],
+                    //         ),
+                    //       ),
+                    //       Spacer(),
+                    //       // GestureDetector(
+                    //       //   onTap: () {
+                    //       //     Fluttertoast.showToast(
+                    //       //       toastLength: Toast.LENGTH_SHORT,
+                    //       //       gravity: ToastGravity.BOTTOM,
+                    //       //       msg: "App is still under works",
+                    //       //     );
+                    //       //   },
+                    //       //   child: SvgPicture.asset(
+                    //       //     searchicon,
+                    //       //     height: 40,
+                    //       //     width: 40,
+                    //       //   ),
+                    //       // ),
+                    //       SizedBox(
+                    //         width: MediaQuery.of(context).size.width * 0.04,
+                    //       ),
+                    //       CircleAvatar(
+                    //         radius: 25,
+                    //         // backgroundImage: AssetImage(
+                    //         //   'assets/images/Grabify_Logo_final.png',
+                    //         // ),
+                    //         backgroundColor: Colors.white,
+                    //       ),
+                    //       SizedBox(
+                    //         width: MediaQuery.of(context).size.width * 0.05,
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.02,
+                    ),
+                    FrostedGlassBox(
+                      theWidth: MediaQuery.of(context).size.width * 0.9,
+                      theHeight: MediaQuery.of(context).size.height * 0.82,
+                      theChild: Container(
+                        height: MediaQuery.of(context).size.height * 0.5,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            SizedBox(
+                              height:
+                                  MediaQuery.of(context).size.height * 0.002,
+                            ),
+                            SizedBox(
+                              //height: MediaQuery.of(context).size.height * 0.07,
+                              width: MediaQuery.of(context).size.width * 0.75,
+                              child: TextFormField(
+                                controller: _purpose,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: "Montserrat",
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w500),
+                                maxLength: 300,
+                                minLines: 6,
+                                keyboardType: TextInputType.multiline,
+                                maxLines: null,
+                                textAlign: TextAlign.center,
+                                decoration: InputDecoration(
+                                  fillColor: Color.fromRGBO(0, 27, 45, 1),
+                                  filled: true,
+                                  focusColor: Color.fromRGBO(0, 53, 88, 0.294),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(18),
+                                  ),
+                                  hintStyle: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: "Montserrat"),
+                                  hintText: "Purpose",
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.07,
+                              width: MediaQuery.of(context).size.width * 0.75,
+                              child: TextField(
+                                focusNode: AlwaysDisabledFocusNode(),
+                                readOnly: true,
+                                //create a dropdown inside the textfield
+                                controller: _place,
+                                onTap: () => {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        elevation: 100,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
+                                        ),
+                                        backgroundColor:
+                                            Color.fromRGBO(66, 66, 66, 1),
+                                        title: Text(
+                                          "Select a place",
+                                          style: TextStyle(
+                                            color: Color.fromRGBO(
+                                                173, 224, 129, 1),
+                                            fontFamily: "Montserrat",
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                        content: Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.9,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.5,
+                                          child: ListView.builder(
+                                            itemCount: places.length,
+                                            itemBuilder: (context, index) {
+                                              return ListTile(
+                                                title: Text(places[index]),
+                                                onTap: () {
+                                                  setState(() {
+                                                    _place.text = places[index];
+                                                  });
+                                                  Navigator.pop(context);
+                                                },
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                },
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: "Montserrat",
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w500),
+                                textAlign: TextAlign.center,
+                                decoration: InputDecoration(
+                                  fillColor: Color.fromRGBO(0, 27, 45, 1),
+                                  filled: true,
+                                  focusColor: Color.fromRGBO(0, 53, 88, 0.294),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(18),
+                                  ),
+                                  hintStyle: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: "Montserrat"),
+                                  hintText: "Place",
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.07,
+                              width: MediaQuery.of(context).size.width * 0.75,
+                              child: TextField(
+                                controller: _date,
+                                focusNode: AlwaysDisabledFocusNode(),
+                                onTap: () async {
+                                  DateTime? pickedDate = await showDatePicker(
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime(2020),
+                                    lastDate: DateTime(2029),
+                                  );
+
+                                  if (pickedDate != null) {
+                                    setState(() {
+                                      _date.text = DateFormat('dd-MM-yyyy')
+                                          .format(pickedDate);
+                                    });
+                                  } else {
+                                    setState(() {
+                                      _date.text = "Date";
+                                    });
+                                  }
+                                },
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: "Montserrat",
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                textAlign: TextAlign.center,
+                                decoration: InputDecoration(
+                                  fillColor: Color.fromRGBO(0, 27, 45, 1),
+                                  filled: true,
+                                  focusColor: Color.fromRGBO(0, 53, 88, 0.294),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(18),
+                                  ),
+                                  hintStyle: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: "Montserrat"),
+                                  hintText: "Date",
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.07,
+                              width: MediaQuery.of(context).size.width * 0.75,
+                              child: TextField(
+                                controller: _leavetime,
+                                focusNode: AlwaysDisabledFocusNode(),
+                                onTap: () async {
+                                  TimeOfDay? pickedLeaveTime =
+                                      await showTimePicker(
+                                          context: context,
+                                          initialTime: TimeOfDay.now());
+
+                                  if (pickedLeaveTime != null) {
+                                    setState(() {
+                                      _leavetime.text = TimeOfDay(
+                                        hour: pickedLeaveTime.hour,
+                                        minute: pickedLeaveTime.minute,
+                                      ).format(context);
+                                    });
+                                  } else {
+                                    setState(() {
+                                      _leavetime.text = "Leave Time";
+                                    });
+                                  }
+                                },
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: "Montserrat",
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w500),
+                                textAlign: TextAlign.center,
+                                decoration: InputDecoration(
+                                  fillColor: Color.fromRGBO(0, 27, 45, 1),
+                                  filled: true,
+                                  focusColor: Color.fromRGBO(0, 53, 88, 0.294),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(18),
+                                  ),
+                                  hintStyle: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: "Montserrat"),
+                                  hintText: "Leave Time",
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.07,
+                              width: MediaQuery.of(context).size.width * 0.75,
+                              child: TextField(
+                                controller: _intime,
+                                focusNode: AlwaysDisabledFocusNode(),
+                                onTap: () async {
+                                  TimeOfDay? pickedInTime =
+                                      await showTimePicker(
+                                          context: context,
+                                          initialTime: TimeOfDay.now());
+
+                                  if (pickedInTime != null) {
+                                    setState(() {
+                                      _intime.text = TimeOfDay(
+                                        hour: pickedInTime.hour,
+                                        minute: pickedInTime.minute,
+                                      ).format(context);
+                                    });
+                                  } else {
+                                    setState(() {
+                                      _intime.text = "In Time";
+                                    });
+                                  }
+                                },
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: "Montserrat",
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w500),
+                                textAlign: TextAlign.center,
+                                decoration: InputDecoration(
+                                  fillColor: Color.fromRGBO(0, 27, 45, 1),
+                                  filled: true,
+                                  focusColor: Color.fromRGBO(0, 53, 88, 0.294),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(18),
+                                  ),
+                                  hintStyle: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: "Montserrat"),
+                                  hintText: "In Time",
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.07,
+                              width: MediaQuery.of(context).size.width * 0.75,
+                              child: TextField(
+                                focusNode: AlwaysDisabledFocusNode(),
+                                readOnly: true,
+                                //create a dropdown inside the textfield
+                                controller: _warden,
+                                onTap: () => {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        elevation: 100,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
+                                        ),
+                                        backgroundColor:
+                                            Color.fromRGBO(66, 66, 66, 1),
+                                        title: Text(
+                                          "Select a warden",
+                                          style: TextStyle(
+                                            color: Color.fromRGBO(
+                                                173, 224, 129, 1),
+                                            fontFamily: "Montserrat",
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                        content: Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.9,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.5,
+                                          child: ListView.builder(
+                                            itemCount: wardens.length,
+                                            itemBuilder: (context, index) {
+                                              return ListTile(
+                                                title: Text(wardens[index]),
+                                                onTap: () {
+                                                  setState(() {
+                                                    _warden.text =
+                                                        wardens[index];
+                                                  });
+                                                  Navigator.pop(context);
+                                                },
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                },
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: "Montserrat",
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w500),
+                                textAlign: TextAlign.center,
+                                decoration: InputDecoration(
+                                  fillColor: Color.fromRGBO(0, 27, 45, 1),
+                                  filled: true,
+                                  focusColor: Color.fromRGBO(0, 53, 88, 0.294),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(18),
+                                  ),
+                                  hintStyle: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: "Montserrat"),
+                                  hintText: "Designated Warden",
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(bottom: 1, top: 14),
+                              child: Column(
+                                //crossAxisAlignment:CrossAxisAlignment.end,
+                                children: <Widget>[
+                                  ElevatedButton(
+                                    //onPressed: signIN,
+                                    onPressed: () {
+                                      // if (_formKey.currentState!.validate()) {
+                                      //   signIN();
+                                      // }
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor:
+                                          Color.fromRGBO(173, 224, 129, 1),
+                                      padding: const EdgeInsets.only(
+                                          left: 45,
+                                          right: 45,
+                                          top: 10,
+                                          bottom: 10),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(14.0)),
+                                    ),
+                                    child: const Text(
+                                      'Submit',
+                                      style: TextStyle(
+                                        fontFamily: "Montserrat",
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.w700,
+                                        color: Color.fromRGBO(0, 27, 45, 1),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height:
+                                  MediaQuery.of(context).size.height * 0.002,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class AlwaysDisabledFocusNode extends FocusNode {
+  @override
+  bool get hasFocus => false;
+}
