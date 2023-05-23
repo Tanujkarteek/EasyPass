@@ -3,6 +3,7 @@
 import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:easypass/screens/dummy_guard.dart';
 import 'package:easypass/screens/dummy_warden.dart';
+import 'package:easypass/screens/stud_dashboard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -255,7 +256,6 @@ class _SingINState extends State<SignIN> {
   void route() {
     User? user = FirebaseAuth.instance.currentUser;
     //print(user!.uid);
-    // ignore: unused_local_variable
     var kk = FirebaseFirestore.instance
         .collection('users')
         .doc(user!.uid)
@@ -277,7 +277,7 @@ class _SingINState extends State<SignIN> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => DStudPage(),
+              builder: (context) => StudDash(),
             ),
           );
         } else if (documentSnapshot.get('role') == "guard") {
@@ -291,8 +291,11 @@ class _SingINState extends State<SignIN> {
           );
         }
       } else {
-        // ignore: avoid_print
-        print('Document does not exist on the database');
+        AnimatedSnackBar.material(
+          'Document does not exist on the database',
+          type: AnimatedSnackBarType.error,
+          mobileSnackBarPosition: MobileSnackBarPosition.bottom,
+        ).show(context);
       }
     });
   }
