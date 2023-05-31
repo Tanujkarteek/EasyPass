@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../components/frostedglass.dart';
-import 'dummy_stud.dart';
+//import 'non_using_pages/dummy_stud.dart';
 
 class SignIN extends StatefulWidget {
   const SignIN({super.key});
@@ -21,6 +21,9 @@ class SignIN extends StatefulWidget {
 }
 
 class _SingINState extends State<SignIN> {
+  bool _obscureText = true;
+  bool _isLoading = false;
+  // ignore: non_constant_identifier_names, prefer_typing_uninitialized_variables
   var role_type;
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -38,211 +41,258 @@ class _SingINState extends State<SignIN> {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
-        body: NotificationListener<OverscrollIndicatorNotification>(
-          onNotification: (OverscrollIndicatorNotification overscroll) {
-            overscroll.disallowIndicator();
-            return false;
-          },
-          child: SingleChildScrollView(
-            child: Container(
-              height: MediaQuery.of(context).size.height,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Color.fromRGBO(0, 146, 121, 1),
-                    Color.fromRGBO(173, 224, 129, 1)
-                  ],
+        body: _isLoading
+            ? Center(
+                child: CircularProgressIndicator(
+                  strokeWidth: 5,
+                  backgroundColor: Color.fromRGBO(30, 30, 30, 0.3),
                 ),
-              ),
-              child: Stack(
-                children: [
-                  Container(
-                    width: MediaQuery.of(context)
-                        .size
-                        .width, // height:  MediaQuery.of(context).size.width,
-                    child: Column(
-                      //mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+              )
+            : NotificationListener<OverscrollIndicatorNotification>(
+                onNotification: (OverscrollIndicatorNotification overscroll) {
+                  overscroll.disallowIndicator();
+                  return false;
+                },
+                child: SingleChildScrollView(
+                  child: Container(
+                    height: MediaQuery.of(context).size.height,
+                    decoration: BoxDecoration(
+                      // gradient: LinearGradient(
+                      //   begin: Alignment.topCenter,
+                      //   end: Alignment.bottomCenter,
+                      //   colors: [
+                      //     Color.fromRGBO(0, 146, 121, 1),
+                      //     Color.fromRGBO(173, 224, 129, 1)
+                      //   ],
+                      // ),
+                      color: Color.fromRGBO(30, 30, 30, 1),
+                      // image: DecorationImage(
+                      //   image: AssetImage("assets/images/bgimg.png"),
+                      //   fit: BoxFit.fill,
+                      // ),
+                    ),
+                    child: Stack(
                       children: [
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.15,
-                        ),
-                        Text(
-                          "EasyPass",
-                          style: TextStyle(
-                            color: Color.fromRGBO(0, 27, 45, 1),
-                            fontFamily: "ShoraiSans",
-                            fontSize: 48,
-                          ),
-                        ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.23,
-                        ),
-                        FrostedGlassBox(
-                          theWidth: MediaQuery.of(context).size.width * 0.85,
-                          theHeight: MediaQuery.of(context).size.height * 0.4,
-                          theChild: Container(
-                            height: MediaQuery.of(context).size.height * 0.5,
-                            child: Form(
-                              key: _formKey,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Container(
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 30,
-                                          right: 30,
-                                          top: 8,
-                                          bottom: 8),
-                                      child: TextFormField(
-                                        controller: emailController,
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontFamily: "Montserrat",
-                                        ),
-                                        textAlign: TextAlign.center,
-                                        decoration: InputDecoration(
-                                          fillColor:
-                                              Color.fromRGBO(0, 27, 45, 1),
-                                          filled: true,
-                                          focusColor:
-                                              Color.fromRGBO(0, 53, 88, 0.294),
-                                          border: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(15)),
-                                          hintStyle: TextStyle(
-                                              color: Colors.white,
-                                              fontFamily: "Montserrat"),
-                                          hintText: "Email Address",
-                                        ),
-                                        validator: (value) {
-                                          if (value!.isEmpty) {
-                                            return 'Please enter an email address';
-                                          }
-                                          if (!_validateEmail(value)) {
-                                            return 'Please enter a valid email address';
-                                          }
-                                          return null;
-                                        },
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    padding: const EdgeInsets.only(
-                                      left: 30,
-                                      right: 30,
-                                      top: 8,
-                                      bottom: 8,
-                                    ),
-                                    child: TextFormField(
-                                      controller: passwordController,
-                                      obscureText: true,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontFamily: "Montserrat",
-                                      ),
-                                      textAlign: TextAlign.center,
-                                      decoration: InputDecoration(
-                                        fillColor: Color.fromRGBO(0, 27, 45, 1),
-                                        filled: true,
-                                        focusColor:
-                                            Color.fromRGBO(0, 53, 88, 0.294),
-                                        border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(15)),
-                                        hintStyle: TextStyle(
-                                            color: Colors.white,
-                                            fontFamily: "Montserrat"),
-                                        hintText: "Password",
-                                      ),
-                                      validator: (value) {
-                                        if (value!.isEmpty) {
-                                          return 'Please enter the password';
-                                        }
-                                        return null;
-                                      },
-                                    ),
-                                  ),
-                                  Container(
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 8, bottom: 3, right: 132),
-                                      child: RichText(
-                                        text: TextSpan(
-                                          children: <TextSpan>[
-                                            TextSpan(
+                        Container(
+                          width: MediaQuery.of(context)
+                              .size
+                              .width, // height:  MediaQuery.of(context).size.width,
+                          child: Column(
+                            //mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.15,
+                              ),
+                              Text(
+                                "EasyPass",
+                                style: TextStyle(
+                                  color: Color.fromRGBO(14, 183, 145, 1),
+                                  fontFamily: "ShoraiSans",
+                                  fontSize: 48,
+                                ),
+                              ),
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.23,
+                              ),
+                              FrostedGlassBox(
+                                theWidth:
+                                    MediaQuery.of(context).size.width * 0.85,
+                                theHeight:
+                                    MediaQuery.of(context).size.height * 0.4,
+                                theChild: Container(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.5,
+                                  child: Form(
+                                    key: _formKey,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Container(
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 30,
+                                                right: 30,
+                                                top: 8,
+                                                bottom: 8),
+                                            child: TextFormField(
+                                              controller: emailController,
                                               style: TextStyle(
-                                                color: Color.fromRGBO(
-                                                    173, 224, 129, 1),
-                                                fontSize: 15,
+                                                color: Colors.white,
                                                 fontFamily: "Montserrat",
+                                                fontWeight: FontWeight.w500,
                                               ),
-                                              text: ("Forget password?"),
-                                            )
-                                          ],
+                                              //textAlign: TextAlign.center,
+                                              decoration: InputDecoration(
+                                                fillColor: Color.fromRGBO(
+                                                    14, 183, 145, 1),
+                                                filled: true,
+                                                focusColor: Color.fromRGBO(
+                                                    0, 53, 88, 0.294),
+                                                border: OutlineInputBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            15)),
+                                                hintStyle: TextStyle(
+                                                  color: Colors.white,
+                                                  fontFamily: "Montserrat",
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                                hintText: "Email Address",
+                                              ),
+                                              validator: (value) {
+                                                if (value!.isEmpty) {
+                                                  return 'Please enter an email address';
+                                                }
+                                                if (!_validateEmail(value)) {
+                                                  return 'Please enter a valid email address';
+                                                }
+                                                return null;
+                                              },
+                                            ),
+                                          ),
                                         ),
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          bottom: 1, top: 14),
-                                      child: Column(
-                                        //crossAxisAlignment:CrossAxisAlignment.end,
-                                        children: <Widget>[
-                                          ElevatedButton(
-                                            //onPressed: signIN,
-                                            onPressed: () {
-                                              if (_formKey.currentState!
-                                                  .validate()) {
-                                                signIN();
-                                              }
-                                            },
-                                            style: ElevatedButton.styleFrom(
-                                              backgroundColor: Color.fromRGBO(
-                                                  173, 224, 129, 1),
-                                              padding: const EdgeInsets.only(
-                                                  left: 45,
-                                                  right: 45,
-                                                  top: 10,
-                                                  bottom: 10),
-                                              shape: RoundedRectangleBorder(
+                                        Container(
+                                          padding: const EdgeInsets.only(
+                                            left: 30,
+                                            right: 30,
+                                            top: 8,
+                                            bottom: 8,
+                                          ),
+                                          child: TextFormField(
+                                            controller: passwordController,
+                                            obscureText: _obscureText,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontFamily: "Montserrat",
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                            //textAlign: TextAlign.center,
+                                            enableSuggestions: true,
+                                            decoration: InputDecoration(
+                                              suffixIcon: IconButton(
+                                                icon: Icon(_obscureText
+                                                    ? Icons.visibility
+                                                    : Icons.visibility_off),
+                                                onPressed: () {
+                                                  setState(() {
+                                                    _obscureText =
+                                                        !_obscureText;
+                                                  });
+                                                },
+                                              ),
+                                              fillColor: Color.fromRGBO(
+                                                  14, 183, 145, 1),
+                                              filled: true,
+                                              focusColor: Color.fromRGBO(
+                                                  0, 53, 88, 0.294),
+                                              border: OutlineInputBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(
-                                                          14.0)),
-                                            ),
-                                            child: const Text(
-                                              'Sign in',
-                                              style: TextStyle(
+                                                          15)),
+                                              hintStyle: TextStyle(
+                                                color: Colors.white,
                                                 fontFamily: "Montserrat",
-                                                fontSize: 25,
-                                                color: Color.fromRGBO(
-                                                    0, 27, 45, 1),
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                              hintText: "Password",
+                                            ),
+                                            validator: (value) {
+                                              if (value!.isEmpty) {
+                                                return 'Please enter the password';
+                                              }
+                                              return null;
+                                            },
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(right: 110),
+                                          child: Container(
+                                            child: RichText(
+                                              text: TextSpan(
+                                                children: <TextSpan>[
+                                                  TextSpan(
+                                                    style: TextStyle(
+                                                      color: Color.fromRGBO(
+                                                          0, 0, 0, 1),
+                                                      fontSize: 14,
+                                                      fontFamily: "Montserrat",
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ),
+                                                    text: ("Forget password?"),
+                                                  )
+                                                ],
                                               ),
                                             ),
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                        Container(
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                bottom: 1, top: 14),
+                                            child: Column(
+                                              //crossAxisAlignment:CrossAxisAlignment.end,
+                                              children: <Widget>[
+                                                ElevatedButton(
+                                                  //onPressed: signIN,
+                                                  onPressed: () {
+                                                    if (_formKey.currentState!
+                                                        .validate()) {
+                                                      signIN();
+                                                    }
+                                                  },
+                                                  style:
+                                                      ElevatedButton.styleFrom(
+                                                    backgroundColor:
+                                                        Color.fromRGBO(
+                                                            0, 0, 0, 1),
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 45,
+                                                            right: 45,
+                                                            top: 10,
+                                                            bottom: 10),
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        14.0)),
+                                                  ),
+                                                  child: const Text(
+                                                    'Sign in',
+                                                    style: TextStyle(
+                                                      fontFamily: "Montserrat",
+                                                      fontSize: 25,
+                                                      color: Color.fromRGBO(
+                                                          14, 183, 145, 1),
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                ],
+                                ),
                               ),
-                            ),
+                            ],
                           ),
                         ),
                       ],
                     ),
                   ),
-                ],
+                ),
               ),
-            ),
-          ),
-        ),
       ),
     );
   }
@@ -265,30 +315,15 @@ class _SingINState extends State<SignIN> {
         if (documentSnapshot.get('role') == "warden") {
           role_type = "warden";
           saveUser();
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => DWardPage(),
-            ),
-          );
+          Navigator.pushReplacementNamed(context, '/dummy_ward');
         } else if (documentSnapshot.get('role') == "student") {
           role_type = "student";
           saveUser();
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => StudDash(),
-            ),
-          );
+          Navigator.pushReplacementNamed(context, '/stud_dash');
         } else if (documentSnapshot.get('role') == "guard") {
           role_type = "guard";
           saveUser();
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => DGuardPage(),
-            ),
-          );
+          Navigator.pushReplacementNamed(context, '/dummy_guard');
         }
       } else {
         AnimatedSnackBar.material(
@@ -306,13 +341,17 @@ class _SingINState extends State<SignIN> {
     //   password: passwordController.text.trim(),
     // );
     // route();
+
+    // Set the loading state to true
+    setState(() {
+      _isLoading = true;
+    });
     try {
       UserCredential userCredential =
           await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
-      route();
     } on FirebaseAuthException catch (e) {
       String errorMessage = '';
 
@@ -329,12 +368,23 @@ class _SingINState extends State<SignIN> {
         type: AnimatedSnackBarType.error,
         mobileSnackBarPosition: MobileSnackBarPosition.bottom,
       ).show(context);
+      setState(() {
+        _isLoading = false;
+      });
     } catch (e) {
       AnimatedSnackBar.material(
         e.toString(),
         type: AnimatedSnackBarType.error,
         mobileSnackBarPosition: MobileSnackBarPosition.bottom,
       ).show(context);
+      setState(() {
+        _isLoading = false;
+      });
+    } finally {
+      route();
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 

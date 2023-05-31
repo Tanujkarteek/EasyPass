@@ -14,14 +14,15 @@ class DGuardPage extends StatelessWidget {
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color.fromRGBO(0, 146, 121, 1),
-              Color.fromRGBO(173, 224, 129, 1)
-            ],
-          ),
+          // gradient: LinearGradient(
+          //   begin: Alignment.topCenter,
+          //   end: Alignment.bottomCenter,
+          //   colors: [
+          //     Color.fromRGBO(0, 146, 121, 1),
+          //     Color.fromRGBO(173, 224, 129, 1)
+          //   ],
+          // ),
+          color: Color.fromRGBO(30, 30, 30, 1),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -29,7 +30,7 @@ class DGuardPage extends StatelessWidget {
           children: [
             Text(
               style: TextStyle(
-                color: Color.fromRGBO(0, 27, 45, 1),
+                color: Color.fromRGBO(14, 183, 145, 1),
                 fontFamily: "ShoraiSans",
                 fontSize: 48,
               ),
@@ -50,7 +51,7 @@ class DGuardPage extends StatelessWidget {
                     ),
                   ),
                   backgroundColor: MaterialStateProperty.all(
-                    Color.fromRGBO(0, 27, 45, 1),
+                    Color.fromRGBO(0, 0, 0, 1),
                   ),
                 ),
                 onPressed: () => {
@@ -62,6 +63,7 @@ class DGuardPage extends StatelessWidget {
                   style: TextStyle(
                     color: Colors.white,
                     fontFamily: "Montserrat",
+                    fontWeight: FontWeight.w500,
                     fontSize: 30,
                   ),
                 ),

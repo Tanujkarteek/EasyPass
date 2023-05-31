@@ -1,8 +1,9 @@
 // ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors, unused_import
 
-import 'package:easypass/screens/dummy_stud.dart';
+//import 'package:easypass/screens/non_using_pages/dummy_stud.dart';
 import 'package:easypass/screens/dummy_warden.dart';
 import 'package:easypass/screens/outpass_request.dart';
+import 'package:easypass/screens/signin.dart';
 import 'package:easypass/screens/stud_dashboard.dart';
 import 'package:easypass/screens/welcome.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -21,24 +22,31 @@ Future main() async {
 
 class EasyPass extends StatelessWidget {
   EasyPass({Key? key}) : super(key: key);
-  static const MaterialColor customSwatch = MaterialColor(0xFFADE081, {
-    50: Color.fromRGBO(173, 224, 129, 0.1),
-    100: Color.fromRGBO(173, 224, 129, 0.2),
-    200: Color.fromRGBO(173, 224, 129, 0.3),
-    300: Color.fromRGBO(173, 224, 129, 0.4),
-    400: Color.fromRGBO(173, 224, 129, 0.5),
-    500: Color.fromRGBO(173, 224, 129, 0.6), // Primary color
-    600: Color.fromRGBO(173, 224, 129, 0.7),
-    700: Color.fromRGBO(173, 224, 129, 0.8),
-    800: Color.fromRGBO(173, 224, 129, 0.9),
-    900: Color.fromRGBO(173, 224, 129, 1.0),
+  static const MaterialColor customSwatch = MaterialColor(0xFF0EB791, {
+    50: Color(0xFFE0F5F0),
+    100: Color(0xFFB3ECE2),
+    200: Color(0xFF80E3D4),
+    300: Color(0xFF4DDAC6),
+    400: Color(0xFF26D1B9),
+    500: Color(0xFF0EB791), // Primary color
+    600: Color(0xFF0B9D7E),
+    700: Color(0xFF09896B),
+    800: Color(0xFF067657),
+    900: Color(0xFF035343),
   });
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      routes: {'/welcome': (context) => Welcome()},
+      routes: {
+        '/welcome': (context) => Welcome(),
+        '/signin': (context) => SignIN(),
+        '/stud_dash': (context) => StudDash(),
+        '/outpass_request': (context) => RequestPage(),
+        '/dummy_ward': (context) => DWardPage(),
+        '/dummy_guard': (context) => DGuardPage(),
+      },
       // remove debug banner
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -48,6 +56,11 @@ class EasyPass extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: customSwatch,
         brightness: Brightness.dark,
+        textSelectionTheme: TextSelectionThemeData(
+          cursorColor: customSwatch.shade100,
+          selectionColor: customSwatch.shade100,
+          selectionHandleColor: customSwatch.shade100,
+        ),
       ),
     );
   }
