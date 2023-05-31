@@ -39,32 +39,28 @@ class _RequestPageState extends State<RequestPage> {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
-        floatingActionButton: FloatingActionButton(
-          elevation: 10.0,
-          onPressed: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const StudDash(),
-            ),
-          ),
-          backgroundColor: Color.fromRGBO(0, 27, 45, 1),
-          child: Icon(
-            Icons.close,
-            shadows: [
-              Shadow(
-                offset: Offset(2, 2),
-                blurRadius: 10.0,
-                color: Color.fromRGBO(0, 27, 45, 1),
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.only(bottom: 5.0, right: 5.0),
+          child: FloatingActionButton(
+            elevation: 50.0,
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const StudDash(),
               ),
-            ],
-            size: MediaQuery.of(context).size.width * 0.1,
-            color: Colors.white,
+            ),
+            backgroundColor: Color.fromRGBO(14, 183, 145, 1),
+            child: Icon(
+              Icons.close,
+              size: MediaQuery.of(context).size.width * 0.1,
+              color: Colors.white,
+            ),
           ),
         ),
         appBar: AppBar(
           automaticallyImplyLeading: false,
           toolbarHeight: MediaQuery.of(context).size.height * 0.1,
-          backgroundColor: Color.fromRGBO(0, 146, 121, 1),
+          backgroundColor: Color.fromRGBO(30, 30, 30, 1),
           elevation: 0.0,
           title: Padding(
             padding: const EdgeInsets.only(left: 6.0),
@@ -120,14 +116,15 @@ class _RequestPageState extends State<RequestPage> {
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Color.fromRGBO(0, 146, 121, 1),
-                    Color.fromRGBO(173, 224, 129, 1)
-                  ],
-                ),
+                // gradient: LinearGradient(
+                //   begin: Alignment.topCenter,
+                //   end: Alignment.bottomCenter,
+                //   colors: [
+                //     Color.fromRGBO(0, 146, 121, 1),
+                //     Color.fromRGBO(173, 224, 129, 1)
+                //   ],
+                // ),
+                color: Color.fromRGBO(30, 30, 30, 1),
               ),
               child: SingleChildScrollView(
                 child: Column(
@@ -217,34 +214,38 @@ class _RequestPageState extends State<RequestPage> {
                             SizedBox(
                               //height: MediaQuery.of(context).size.height * 0.07,
                               width: MediaQuery.of(context).size.width * 0.75,
-                              child: TextFormField(
-                                controller: _purpose,
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: "Montserrat",
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w500),
-                                maxLength: 300,
-                                minLines: 6,
-                                keyboardType: TextInputType.multiline,
-                                maxLines: null,
-                                textAlign: TextAlign.center,
-                                decoration: InputDecoration(
-                                  fillColor: Color.fromRGBO(0, 27, 45, 1),
-                                  filled: true,
-                                  focusColor: Color.fromRGBO(0, 53, 88, 0.294),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(18),
-                                  ),
-                                  hintStyle: TextStyle(
+                              child: Center(
+                                child: TextFormField(
+                                  controller: _purpose,
+                                  style: TextStyle(
                                       color: Colors.white,
-                                      fontFamily: "Montserrat"),
-                                  hintText: "Purpose",
+                                      fontFamily: "Montserrat",
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w500),
+                                  maxLength: 300,
+                                  minLines: 4,
+                                  keyboardType: TextInputType.multiline,
+                                  maxLines: 4,
+                                  textAlign: TextAlign.center,
+                                  decoration: InputDecoration(
+                                    fillColor:
+                                        Color.fromRGBO(14, 183, 145, 0.6),
+                                    filled: true,
+                                    focusColor:
+                                        Color.fromRGBO(0, 53, 88, 0.294),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(18),
+                                    ),
+                                    hintStyle: TextStyle(
+                                        color: Colors.white,
+                                        fontFamily: "Montserrat"),
+                                    hintText: "Purpose",
+                                  ),
                                 ),
                               ),
                             ),
                             SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.07,
+                              height: MediaQuery.of(context).size.height * 0.08,
                               width: MediaQuery.of(context).size.width * 0.75,
                               child: TextField(
                                 focusNode: AlwaysDisabledFocusNode(),
@@ -266,8 +267,8 @@ class _RequestPageState extends State<RequestPage> {
                                         title: Text(
                                           "Select a place",
                                           style: TextStyle(
-                                            color: Color.fromRGBO(
-                                                173, 224, 129, 1),
+                                            color:
+                                                Color.fromRGBO(14, 183, 145, 1),
                                             fontFamily: "Montserrat",
                                             fontWeight: FontWeight.w700,
                                           ),
@@ -307,7 +308,7 @@ class _RequestPageState extends State<RequestPage> {
                                     fontWeight: FontWeight.w500),
                                 textAlign: TextAlign.center,
                                 decoration: InputDecoration(
-                                  fillColor: Color.fromRGBO(0, 27, 45, 1),
+                                  fillColor: Color.fromRGBO(14, 183, 145, 0.6),
                                   filled: true,
                                   focusColor: Color.fromRGBO(0, 53, 88, 0.294),
                                   border: OutlineInputBorder(
@@ -321,7 +322,7 @@ class _RequestPageState extends State<RequestPage> {
                               ),
                             ),
                             SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.07,
+                              height: MediaQuery.of(context).size.height * 0.08,
                               width: MediaQuery.of(context).size.width * 0.75,
                               child: TextField(
                                 controller: _date,
@@ -330,8 +331,8 @@ class _RequestPageState extends State<RequestPage> {
                                   DateTime? pickedDate = await showDatePicker(
                                     context: context,
                                     initialDate: DateTime.now(),
-                                    firstDate: DateTime(2020),
-                                    lastDate: DateTime(2029),
+                                    firstDate: DateTime.now(),
+                                    lastDate: DateTime(2035),
                                   );
 
                                   if (pickedDate != null) {
@@ -353,7 +354,7 @@ class _RequestPageState extends State<RequestPage> {
                                 ),
                                 textAlign: TextAlign.center,
                                 decoration: InputDecoration(
-                                  fillColor: Color.fromRGBO(0, 27, 45, 1),
+                                  fillColor: Color.fromRGBO(14, 183, 145, 0.6),
                                   filled: true,
                                   focusColor: Color.fromRGBO(0, 53, 88, 0.294),
                                   border: OutlineInputBorder(
@@ -367,23 +368,38 @@ class _RequestPageState extends State<RequestPage> {
                               ),
                             ),
                             SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.07,
+                              height: MediaQuery.of(context).size.height * 0.08,
                               width: MediaQuery.of(context).size.width * 0.75,
                               child: TextField(
                                 controller: _leavetime,
                                 focusNode: AlwaysDisabledFocusNode(),
                                 onTap: () async {
-                                  TimeOfDay? pickedLeaveTime =
+                                  TimeOfDay? pickedInTime =
                                       await showTimePicker(
-                                          context: context,
-                                          initialTime: TimeOfDay.now());
+                                    context: context,
+                                    initialTime: TimeOfDay.now(),
+                                    builder:
+                                        (BuildContext context, Widget? child) {
+                                      return MediaQuery(
+                                        data: MediaQuery.of(context).copyWith(
+                                            alwaysUse24HourFormat: false),
+                                        child: child!,
+                                      );
+                                    },
+                                  );
 
-                                  if (pickedLeaveTime != null) {
+                                  if (pickedInTime != null) {
                                     setState(() {
                                       _leavetime.text = TimeOfDay(
-                                        hour: pickedLeaveTime.hour,
-                                        minute: pickedLeaveTime.minute,
+                                        hour: pickedInTime.hour % 12,
+                                        minute: pickedInTime.minute,
                                       ).format(context);
+                                      final period =
+                                          pickedInTime.period == DayPeriod.am
+                                              ? 'AM'
+                                              : 'PM';
+                                      final time = _leavetime.text;
+                                      _leavetime.text = '$time $period';
                                     });
                                   } else {
                                     setState(() {
@@ -398,7 +414,7 @@ class _RequestPageState extends State<RequestPage> {
                                     fontWeight: FontWeight.w500),
                                 textAlign: TextAlign.center,
                                 decoration: InputDecoration(
-                                  fillColor: Color.fromRGBO(0, 27, 45, 1),
+                                  fillColor: Color.fromRGBO(14, 183, 145, 0.6),
                                   filled: true,
                                   focusColor: Color.fromRGBO(0, 53, 88, 0.294),
                                   border: OutlineInputBorder(
@@ -412,7 +428,7 @@ class _RequestPageState extends State<RequestPage> {
                               ),
                             ),
                             SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.07,
+                              height: MediaQuery.of(context).size.height * 0.08,
                               width: MediaQuery.of(context).size.width * 0.75,
                               child: TextField(
                                 controller: _intime,
@@ -420,15 +436,30 @@ class _RequestPageState extends State<RequestPage> {
                                 onTap: () async {
                                   TimeOfDay? pickedInTime =
                                       await showTimePicker(
-                                          context: context,
-                                          initialTime: TimeOfDay.now());
+                                    context: context,
+                                    initialTime: TimeOfDay.now(),
+                                    builder:
+                                        (BuildContext context, Widget? child) {
+                                      return MediaQuery(
+                                        data: MediaQuery.of(context).copyWith(
+                                            alwaysUse24HourFormat: false),
+                                        child: child!,
+                                      );
+                                    },
+                                  );
 
                                   if (pickedInTime != null) {
                                     setState(() {
                                       _intime.text = TimeOfDay(
-                                        hour: pickedInTime.hour,
+                                        hour: pickedInTime.hour % 12,
                                         minute: pickedInTime.minute,
                                       ).format(context);
+                                      final period =
+                                          pickedInTime.period == DayPeriod.am
+                                              ? 'AM'
+                                              : 'PM';
+                                      final time = _intime.text;
+                                      _intime.text = '$time $period';
                                     });
                                   } else {
                                     setState(() {
@@ -443,7 +474,7 @@ class _RequestPageState extends State<RequestPage> {
                                     fontWeight: FontWeight.w500),
                                 textAlign: TextAlign.center,
                                 decoration: InputDecoration(
-                                  fillColor: Color.fromRGBO(0, 27, 45, 1),
+                                  fillColor: Color.fromRGBO(14, 183, 145, 0.6),
                                   filled: true,
                                   focusColor: Color.fromRGBO(0, 53, 88, 0.294),
                                   border: OutlineInputBorder(
@@ -457,7 +488,7 @@ class _RequestPageState extends State<RequestPage> {
                               ),
                             ),
                             SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.07,
+                              height: MediaQuery.of(context).size.height * 0.08,
                               width: MediaQuery.of(context).size.width * 0.75,
                               child: TextField(
                                 focusNode: AlwaysDisabledFocusNode(),
@@ -479,8 +510,8 @@ class _RequestPageState extends State<RequestPage> {
                                         title: Text(
                                           "Select a warden",
                                           style: TextStyle(
-                                            color: Color.fromRGBO(
-                                                173, 224, 129, 1),
+                                            color:
+                                                Color.fromRGBO(14, 183, 145, 1),
                                             fontFamily: "Montserrat",
                                             fontWeight: FontWeight.w700,
                                           ),
@@ -521,7 +552,7 @@ class _RequestPageState extends State<RequestPage> {
                                     fontWeight: FontWeight.w500),
                                 textAlign: TextAlign.center,
                                 decoration: InputDecoration(
-                                  fillColor: Color.fromRGBO(0, 27, 45, 1),
+                                  fillColor: Color.fromRGBO(14, 183, 145, 0.6),
                                   filled: true,
                                   focusColor: Color.fromRGBO(0, 53, 88, 0.294),
                                   border: OutlineInputBorder(
@@ -548,8 +579,7 @@ class _RequestPageState extends State<RequestPage> {
                                       // }
                                     },
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor:
-                                          Color.fromRGBO(173, 224, 129, 1),
+                                      backgroundColor: Colors.black,
                                       padding: const EdgeInsets.only(
                                           left: 45,
                                           right: 45,
@@ -565,7 +595,7 @@ class _RequestPageState extends State<RequestPage> {
                                         fontFamily: "Montserrat",
                                         fontSize: 25,
                                         fontWeight: FontWeight.w700,
-                                        color: Color.fromRGBO(0, 27, 45, 1),
+                                        color: Color.fromRGBO(14, 183, 145, 1),
                                       ),
                                     ),
                                   ),

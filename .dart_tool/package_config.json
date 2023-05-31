@@ -134,6 +134,12 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "flutter_svg",
+      "rootUri": "file:///T:/Program%20Files/flutter_windows_3.3.10-stable/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_svg-1.1.6",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
       "name": "flutter_test",
       "rootUri": "file:///T:/Program%20Files/flutter_windows_3.3.10-stable/flutter/packages/flutter_test",
       "packageUri": "lib/",
@@ -200,6 +206,18 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "path_drawing",
+      "rootUri": "file:///T:/Program%20Files/flutter_windows_3.3.10-stable/flutter/.pub-cache/hosted/pub.dartlang.org/path_drawing-1.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "path_parsing",
+      "rootUri": "file:///T:/Program%20Files/flutter_windows_3.3.10-stable/flutter/.pub-cache/hosted/pub.dartlang.org/path_parsing-1.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "path_provider_linux",
       "rootUri": "file:///T:/Program%20Files/flutter_windows_3.3.10-stable/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_linux-2.1.10",
       "packageUri": "lib/",
@@ -216,6 +234,12 @@
       "rootUri": "file:///T:/Program%20Files/flutter_windows_3.3.10-stable/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_windows-2.1.6",
       "packageUri": "lib/",
       "languageVersion": "2.17"
+    },
+    {
+      "name": "petitparser",
+      "rootUri": "file:///T:/Program%20Files/flutter_windows_3.3.10-stable/flutter/.pub-cache/hosted/pub.dartlang.org/petitparser-5.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
     },
     {
       "name": "platform",
@@ -350,13 +374,19 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "xml",
+      "rootUri": "file:///T:/Program%20Files/flutter_windows_3.3.10-stable/flutter/.pub-cache/hosted/pub.dartlang.org/xml-6.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
       "name": "easypass",
       "rootUri": "../",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2023-05-22T06:33:51.406593Z",
+  "generated": "2023-05-24T04:21:09.717970Z",
   "generator": "pub",
   "generatorVersion": "2.18.6"
 }

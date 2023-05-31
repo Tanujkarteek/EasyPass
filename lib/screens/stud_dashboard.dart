@@ -16,31 +16,28 @@ class _StudDashState extends State<StudDash> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        elevation: 10.0,
-        onPressed: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => RequestPage(),
-          ),
-        ),
-        backgroundColor: Color.fromRGBO(0, 27, 45, 1),
-        child: Icon(
-          Icons.add,
-          shadows: [
-            Shadow(
-              offset: Offset(2, 2),
-              blurRadius: 10.0,
-              color: Color.fromRGBO(0, 27, 45, 1),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 5.0, right: 5.0),
+        child: FloatingActionButton(
+          elevation: 10.0,
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => RequestPage(),
             ),
-          ],
-          size: MediaQuery.of(context).size.width * 0.1,
-          color: Colors.white,
+          ),
+          backgroundColor: Color.fromRGBO(14, 183, 145, 1),
+          child: Icon(
+            Icons.add,
+            size: MediaQuery.of(context).size.width * 0.1,
+            color: Colors.white,
+          ),
         ),
       ),
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         toolbarHeight: MediaQuery.of(context).size.height * 0.1,
-        backgroundColor: Color.fromRGBO(0, 146, 121, 1),
+        backgroundColor: Color.fromRGBO(30, 30, 30, 1),
         elevation: 0.0,
         title: Padding(
           padding: const EdgeInsets.only(left: 6.0),
@@ -72,7 +69,8 @@ class _StudDashState extends State<StudDash> {
         actions: <Widget>[
           IconButton(
             onPressed: () => {
-              Navigator.popAndPushNamed(context, '/welcome'),
+              Navigator.popAndPushNamed(context,
+                  '/welcome'), // have to change this to profile page asap
               FirebaseAuth.instance.signOut(),
             },
             icon: Icon(
@@ -96,15 +94,19 @@ class _StudDashState extends State<StudDash> {
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                // ignore: prefer_const_literals_to_create_immutables
-                colors: [
-                  Color.fromRGBO(0, 146, 121, 1),
-                  Color.fromRGBO(173, 224, 129, 1)
-                ],
-              ),
+              // gradient: LinearGradient(
+              //   begin: Alignment.topCenter,
+              //   end: Alignment.bottomCenter,
+              //   colors: [
+              //     Color.fromRGBO(0, 146, 121, 1),
+              //     Color.fromRGBO(173, 224, 129, 1)
+              //   ],
+              // ),
+              color: Color.fromRGBO(30, 30, 30, 1),
+              // image: DecorationImage(
+              //   image: AssetImage("assets/images/bgimg.png"),
+              //   fit: BoxFit.fill,
+              // ),
             ),
             child: SingleChildScrollView(
               child: Column(
@@ -186,7 +188,7 @@ class _StudDashState extends State<StudDash> {
                             TextSpan(
                               text: 'Active Outpass',
                               style: TextStyle(
-                                color: Color.fromRGBO(0, 27, 45, 1),
+                                color: Color.fromRGBO(14, 183, 145, 1),
                                 fontSize: 28,
                                 fontFamily: 'Cascadia',
                                 fontWeight: FontWeight.w700,
@@ -642,7 +644,7 @@ class _StudDashState extends State<StudDash> {
                             TextSpan(
                               text: 'Upcoming Outpass',
                               style: TextStyle(
-                                color: Color.fromRGBO(0, 27, 45, 1),
+                                color: Color.fromRGBO(14, 183, 145, 1),
                                 fontSize: 28,
                                 fontFamily: 'Cascadia',
                                 fontWeight: FontWeight.w700,
