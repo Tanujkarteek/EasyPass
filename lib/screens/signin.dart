@@ -1,12 +1,13 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, annotate_overrides, use_build_context_synchronously, unused_import, unused_local_variable
 
 import 'package:animated_snack_bar/animated_snack_bar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easypass/screens/dummy_guard.dart';
 import 'package:easypass/screens/dummy_warden.dart';
+import 'package:easypass/screens/forgot_pass.dart';
 import 'package:easypass/screens/stud_dashboard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -211,22 +212,33 @@ class _SingINState extends State<SignIN> {
                                         Padding(
                                           padding:
                                               const EdgeInsets.only(right: 110),
-                                          child: Container(
-                                            child: RichText(
-                                              text: TextSpan(
-                                                children: <TextSpan>[
-                                                  TextSpan(
-                                                    style: TextStyle(
-                                                      color: Color.fromRGBO(
-                                                          0, 0, 0, 1),
-                                                      fontSize: 14,
-                                                      fontFamily: "Montserrat",
-                                                      fontWeight:
-                                                          FontWeight.w500,
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        ForgotPassPage()),
+                                              );
+                                            },
+                                            child: Container(
+                                              child: RichText(
+                                                text: TextSpan(
+                                                  children: <TextSpan>[
+                                                    TextSpan(
+                                                      style: TextStyle(
+                                                        color: Color.fromRGBO(
+                                                            0, 0, 0, 1),
+                                                        fontSize: 14,
+                                                        fontFamily:
+                                                            "Montserrat",
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                      text: "Forget password?",
                                                     ),
-                                                    text: ("Forget password?"),
-                                                  )
-                                                ],
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                           ),
