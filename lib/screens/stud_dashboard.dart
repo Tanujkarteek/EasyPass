@@ -1,9 +1,12 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, duplicate_ignore
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easypass/components/frostedglass.dart';
 import 'package:easypass/screens/outpass_request.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:pretty_qr_code/pretty_qr_code.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class StudDash extends StatefulWidget {
   const StudDash({super.key});
@@ -13,6 +16,61 @@ class StudDash extends StatefulWidget {
 }
 
 class _StudDashState extends State<StudDash> {
+  String qrdata = 'No Data';
+  String qrdataup = 'No Data';
+  String safeQrDataActive = 'No Data';
+  String safeQrDataPending = 'No Data';
+  Future<void> callActiveData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? userId = prefs.getString('id');
+    // take snapshot of the documents froms logs collection with field status set to active
+    var data = await FirebaseFirestore.instance
+        .collection('logs')
+        .where('user_id', isEqualTo: userId)
+        .where('status', isEqualTo: 'approved')
+        .where('isScanned', isEqualTo: 'yes')
+        .get();
+    // now set qrdata to the value of the field outpass_id of the first document in the snapshot
+    //print(data.docs[0]['outpassId']);
+    setState(() {
+      qrdata = data.docs[0]['outpassId'];
+      safeQrDataActive = qrdata;
+    });
+  }
+
+  Future<void> callPendingData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? userId = prefs.getString('id');
+    // take snapshot of the documents froms logs collection with field status set to active
+    var data = await FirebaseFirestore.instance
+        .collection('logs')
+        .where('user_id', isEqualTo: userId)
+        .where('status', isEqualTo: 'approved')
+        .where('isScanned', isEqualTo: 'no')
+        .get();
+    // now set qrdata to the value of the field outpass_id of the first document in the snapshot
+    //print(data.docs[0]['outpassId']);
+    setState(() {
+      qrdataup = data.docs[0]['outpassId'];
+      safeQrDataPending = qrdataup;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Call your function here
+    getQR();
+  }
+
+  void getQR() {
+    callPendingData();
+    callActiveData();
+    //return safeQrData;
+  }
+
+  //make this qrdata var null safe
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -206,7 +264,7 @@ class _StudDashState extends State<StudDash> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       FrostedGlassBox(
-                        theHeight: MediaQuery.of(context).size.height * 0.52,
+                        theHeight: MediaQuery.of(context).size.height * 0.54,
                         theWidth: MediaQuery.of(context).size.width * 0.9,
                         theChild: Column(
                           //mainAxisAlignment: MainAxisAlignment.center,
@@ -271,12 +329,37 @@ class _StudDashState extends State<StudDash> {
                               height: MediaQuery.of(context).size.height * 0.02,
                             ),
                             // ignore: sized_box_for_whitespace
-                            Container(
-                              width: MediaQuery.of(context).size.width * 0.6,
-                              child: Image.asset(
-                                'assets/images/qrcode_1.png',
-                                fit: BoxFit.contain,
-                              ),
+                            // Container(
+                            //   width: MediaQuery.of(context).size.width * 0.6,
+                            //   child: Image.asset(
+                            //     'assets/images/qrcode_1.png',
+                            //     fit: BoxFit.contain,
+                            //   ),
+                            // ),
+                            Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Container(
+                                  height:
+                                      MediaQuery.of(context).size.width * 0.6,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.6,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                PrettyQr(
+                                  size: MediaQuery.of(context).size.width * 0.5,
+                                  //make data qrdata or something else so that is null safe
+                                  data: safeQrDataActive,
+                                  //data: qrdata,
+                                  errorCorrectLevel: QrErrorCorrectLevel.M,
+                                  roundEdges: true,
+                                  typeNumber: 5,
+                                  elementColor: Colors.black,
+                                ),
+                              ],
                             ),
                             SizedBox(
                               height: MediaQuery.of(context).size.height * 0.02,
@@ -662,7 +745,8 @@ class _StudDashState extends State<StudDash> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       FrostedGlassBox(
-                        theHeight: MediaQuery.of(context).size.height * 0.52,
+                        //theHeight: 460.00,
+                        theHeight: MediaQuery.of(context).size.height * 0.54,
                         theWidth: MediaQuery.of(context).size.width * 0.9,
                         theChild: Column(
                           //mainAxisAlignment: MainAxisAlignment.center,
@@ -727,12 +811,35 @@ class _StudDashState extends State<StudDash> {
                               height: MediaQuery.of(context).size.height * 0.02,
                             ),
                             // ignore: sized_box_for_whitespace
-                            Container(
-                              width: MediaQuery.of(context).size.width * 0.6,
-                              child: Image.asset(
-                                'assets/images/qrcode_1.png',
-                                fit: BoxFit.contain,
-                              ),
+                            // Container(
+                            //   width: MediaQuery.of(context).size.width * 0.6,
+                            //   child: Image.asset(
+                            //     'assets/images/qrcode_1.png',
+                            //     fit: BoxFit.contain,
+                            //   ),
+                            // ),
+                            Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Container(
+                                  height:
+                                      MediaQuery.of(context).size.width * 0.6,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.6,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                PrettyQr(
+                                  size: MediaQuery.of(context).size.width * 0.5,
+                                  data: safeQrDataPending,
+                                  errorCorrectLevel: QrErrorCorrectLevel.M,
+                                  roundEdges: true,
+                                  typeNumber: 5,
+                                  elementColor: Colors.black,
+                                ),
+                              ],
                             ),
                             SizedBox(
                               height: MediaQuery.of(context).size.height * 0.02,

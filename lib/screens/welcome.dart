@@ -23,11 +23,11 @@ class Welcome extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               // gradient: LinearGradient(
-              //   begin: Alignment.topCenter,
-              //   end: Alignment.bottomCenter,
+              //   begin: Alignment.topLeft,
+              //   end: Alignment.bottomRight,
               //   colors: [
-              //     Color.fromRGBO(0, 146, 121, 1),
-              //     Color.fromRGBO(173, 224, 129, 1)
+              //     Color.fromRGBO(44, 224, 171, 1),
+              //     Color.fromRGBO(59, 190, 221, 1)
               //   ],
               // ),
               color: Color.fromRGBO(30, 30, 30, 1),
@@ -49,6 +49,7 @@ class Welcome extends StatelessWidget {
                       Text(
                         "EasyPass",
                         style: TextStyle(
+                          //color: Colors.black,
                           color: Color.fromRGBO(14, 183, 145, 1),
                           fontFamily: "ShoraiSans",
                           fontSize: 48,
@@ -68,6 +69,7 @@ class Welcome extends StatelessWidget {
                               ),
                             ),
                             backgroundColor: MaterialStateProperty.all(
+                              //Colors.black,
                               Color.fromRGBO(14, 183, 145, 1),
                             ),
                           ),

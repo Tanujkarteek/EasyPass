@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, annotate_overrides, use_build_context_synchronously, unused_import, unused_local_variable
 
 import 'package:animated_snack_bar/animated_snack_bar.dart';
-import 'package:easypass/screens/dummy_guard.dart';
 import 'package:easypass/screens/dummy_warden.dart';
 import 'package:easypass/screens/stud_dashboard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -24,7 +23,7 @@ class _SingINState extends State<SignIN> {
   bool _obscureText = true;
   bool _isLoading = false;
   // ignore: non_constant_identifier_names, prefer_typing_uninitialized_variables
-  var role_type;
+  var role_type, user_name, user_email, user_rollno, user_hostel, user_id;
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -303,27 +302,48 @@ class _SingINState extends State<SignIN> {
     return emailRegex.hasMatch(email);
   }
 
-  void route() {
+  Future<void> route() async {
     User? user = FirebaseAuth.instance.currentUser;
     //print(user!.uid);
     var kk = FirebaseFirestore.instance
         .collection('users')
         .doc(user!.uid)
         .get()
-        .then((DocumentSnapshot documentSnapshot) {
+        .then((DocumentSnapshot documentSnapshot) async {
       if (documentSnapshot.exists) {
         if (documentSnapshot.get('role') == "warden") {
+          user_id = user.uid;
+          user_name = documentSnapshot.get('name');
+          user_email = documentSnapshot.get('email');
           role_type = "warden";
           saveUser();
           Navigator.pushReplacementNamed(context, '/dummy_ward');
         } else if (documentSnapshot.get('role') == "student") {
+          // CollectionReference logsCollectionRef =
+          //     FirebaseFirestore.instance.collection('logs');
+          // bool documentExists = await logsCollectionRef
+          //     .doc(user.uid)
+          //     .get()
+          //     .then((docSnapshot) => docSnapshot.exists);
+          // if (!documentExists) {
+          //   DocumentReference documentRef = logsCollectionRef.doc(user.uid);
+          //   await documentRef.set({'user': user.uid});
+          // }
+          user_id = user.uid;
+          user_name = documentSnapshot.get('name');
+          user_email = documentSnapshot.get('email');
+          user_rollno = documentSnapshot.get('rollno');
+          user_hostel = documentSnapshot.get('hostel');
           role_type = "student";
           saveUser();
           Navigator.pushReplacementNamed(context, '/stud_dash');
         } else if (documentSnapshot.get('role') == "guard") {
+          user_id = user.uid;
+          user_name = documentSnapshot.get('name');
+          user_email = documentSnapshot.get('email');
           role_type = "guard";
           saveUser();
-          Navigator.pushReplacementNamed(context, '/dummy_guard');
+          Navigator.pushReplacementNamed(context, '/guard_dash');
         }
       } else {
         AnimatedSnackBar.material(
@@ -391,5 +411,19 @@ class _SingINState extends State<SignIN> {
   Future<void> saveUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('type', role_type);
+    //if not var are not null or empty only then add that data to shared pref
+    prefs.setString('id', user_id);
+    if (user_name != null && user_name.isNotEmpty) {
+      prefs.setString('name', user_name);
+    }
+    if (user_email != null && user_email.isNotEmpty) {
+      prefs.setString('email', user_email);
+    }
+    if (user_rollno != null && user_rollno.isNotEmpty) {
+      prefs.setString('rollno', user_rollno);
+    }
+    if (user_hostel != null && user_hostel.isNotEmpty) {
+      prefs.setString('hostel', user_hostel);
+    }
   }
 }
