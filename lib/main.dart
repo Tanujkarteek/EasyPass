@@ -2,7 +2,9 @@
 
 //import 'package:easypass/screens/non_using_pages/dummy_stud.dart';
 import 'package:easypass/screens/dummy_warden.dart';
+import 'package:easypass/screens/guard_dashboard.dart';
 import 'package:easypass/screens/outpass_request.dart';
+import 'package:easypass/screens/profile.dart';
 import 'package:easypass/screens/signin.dart';
 import 'package:easypass/screens/stud_dashboard.dart';
 import 'package:easypass/screens/welcome.dart';
@@ -10,8 +12,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'screens/dummy_guard.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,7 +45,7 @@ class EasyPass extends StatelessWidget {
         '/stud_dash': (context) => StudDash(),
         '/outpass_request': (context) => RequestPage(),
         '/dummy_ward': (context) => DWardPage(),
-        '/dummy_guard': (context) => DGuardPage(),
+        '/guard_dash': (context) => GuardDash(),
       },
       // remove debug banner
       debugShowCheckedModeBanner: false,
@@ -80,11 +80,14 @@ class MainPage extends StatelessWidget {
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     if (snapshot.data == 1) {
+                      //return ProfilePage();
                       return StudDash();
                     } else if (snapshot.data == 2) {
                       return DWardPage();
                     } else if (snapshot.data == 3) {
-                      return DGuardPage();
+                      //return ProfilePage();
+                      return GuardDash();
+                      //return DGuardPage();
                     } else {
                       return Welcome();
                     }

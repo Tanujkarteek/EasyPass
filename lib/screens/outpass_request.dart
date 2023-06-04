@@ -1,8 +1,11 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, use_key_in_widget_constructors, non_constant_identifier_names
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easypass/screens/stud_dashboard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../components/frostedglass.dart';
 //import 'package:intl/intl.dart';
 
@@ -18,6 +21,8 @@ class _RequestPageState extends State<RequestPage> {
   final TextEditingController _place = TextEditingController();
   final TextEditingController _warden = TextEditingController();
   final TextEditingController _purpose = TextEditingController();
+  var pickedoutTime;
+  var pickedinTime;
 
   @override
   Widget build(BuildContext context) {
@@ -390,16 +395,17 @@ class _RequestPageState extends State<RequestPage> {
 
                                   if (pickedInTime != null) {
                                     setState(() {
+                                      pickedoutTime = pickedInTime;
                                       _leavetime.text = TimeOfDay(
-                                        hour: pickedInTime.hour % 12,
+                                        hour: pickedInTime.hour,
                                         minute: pickedInTime.minute,
                                       ).format(context);
-                                      final period =
-                                          pickedInTime.period == DayPeriod.am
-                                              ? 'AM'
-                                              : 'PM';
-                                      final time = _leavetime.text;
-                                      _leavetime.text = '$time $period';
+                                      // final period =
+                                      //     pickedInTime.period == DayPeriod.am
+                                      //         ? 'AM'
+                                      //         : 'PM';
+                                      // final time = _leavetime.text;
+                                      // _leavetime.text = '$time $period';
                                     });
                                   } else {
                                     setState(() {
@@ -449,17 +455,29 @@ class _RequestPageState extends State<RequestPage> {
                                   );
 
                                   if (pickedInTime != null) {
+                                    pickedinTime = pickedInTime;
                                     setState(() {
                                       _intime.text = TimeOfDay(
-                                        hour: pickedInTime.hour % 12,
+                                        hour: pickedInTime.hour,
                                         minute: pickedInTime.minute,
                                       ).format(context);
-                                      final period =
-                                          pickedInTime.period == DayPeriod.am
-                                              ? 'AM'
-                                              : 'PM';
-                                      final time = _intime.text;
-                                      _intime.text = '$time $period';
+                                      // _intime.text = TimeOfDay(
+                                      //   hour: pickedInTime.hour % 12,
+                                      //   minute: pickedInTime.minute,
+                                      // ).format(context);
+                                      // final period =
+                                      //     pickedInTime.period == DayPeriod.pm
+                                      //         ? 'AM'
+                                      //         : 'PM';
+                                      // final time = _intime.text;
+                                      // _intime.text = '$time $period';
+
+                                      // if (pickedInTime.period == DayPeriod.pm) {
+                                      //   //change last 2 charecter in string to PM
+                                      //   _intime.text = "${_intime.text} PM";
+                                      // } else {
+                                      //   _intime.text = "${_intime.text} PM";
+                                      // }
                                     });
                                   } else {
                                     setState(() {
@@ -577,6 +595,7 @@ class _RequestPageState extends State<RequestPage> {
                                       // if (_formKey.currentState!.validate()) {
                                       //   signIN();
                                       // }
+                                      pushData();
                                     },
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: Colors.black,
@@ -618,6 +637,83 @@ class _RequestPageState extends State<RequestPage> {
         ),
       ),
     );
+  }
+
+  Future<void> pushData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? user_name = prefs.getString('name');
+    String? user_rollno = prefs.getString('rollno');
+    String? user_hostel = prefs.getString('hostel');
+    User? user = FirebaseAuth.instance.currentUser;
+    TimeOfDay expiry = TimeOfDay(
+      hour: pickedinTime.hour - pickedoutTime.hour,
+      minute: pickedinTime.minute - pickedoutTime.minute,
+    );
+    if (expiry.minute < 0) {
+      expiry = TimeOfDay(
+        hour: expiry.hour - 1,
+        minute: expiry.minute + 60,
+      );
+    }
+    if (expiry.minute == 0) {
+      expiry = TimeOfDay(
+        hour: expiry.hour,
+        minute: 00,
+      );
+    }
+    //last changes
+    //DocumentReference userDocRef =
+    FirebaseFirestore.instance.collection('logs').doc(user!.uid);
+    // CollectionReference collectionRef = userDocRef.collection(user.uid);
+    //create a collection reference to a collection called logs
+    CollectionReference logs = FirebaseFirestore.instance.collection('logs');
+    Map<String, dynamic> data = {
+      'user_id': user.uid,
+      'hostel': user_hostel,
+      'time_created': DateTime.now(),
+      'expiry': '${expiry.hour}:${expiry.minute}',
+      'guard': '',
+      'inTime': _intime.text,
+      'leaveTime': _leavetime.text,
+      'name': user_name,
+      'rollno': user_rollno,
+      'outpassId': '',
+      'place': _place.text,
+      'purpose': _purpose.text,
+      'status': 'pending',
+      'isScanned': 'no',
+      //'warden': _warden.text,
+      'date': _date.text,
+    };
+    // ignore: unused_local_variable
+    //DocumentReference newDocumentRef = await collectionRef.add(data);
+    DocumentReference newDocumentRef = await logs.add(data);
+    String autoGeneratedDocId = newDocumentRef.id;
+    await logs.doc(autoGeneratedDocId).update({
+      'outpassId': autoGeneratedDocId,
+    });
+    //clearing the text fields
+    _purpose.clear();
+    _place.clear();
+    _date.clear();
+    _leavetime.clear();
+    _intime.clear();
+    _warden.clear();
+    // ignore: unused_local_variable
+    final snackBar = SnackBar(
+      content: Text(
+        'Request Submitted',
+        style: TextStyle(
+          fontFamily: "Montserrat",
+          fontSize: 20,
+          fontWeight: FontWeight.w700,
+          color: Color.fromRGBO(14, 183, 145, 1),
+        ),
+      ),
+      backgroundColor: Colors.black,
+      duration: Duration(seconds: 2),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }
 

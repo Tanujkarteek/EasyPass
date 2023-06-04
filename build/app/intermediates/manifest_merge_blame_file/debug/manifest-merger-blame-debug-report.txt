@@ -186,34 +186,120 @@
 121            android:required="false" />
 121-->[androidx.window:window:1.0.0-beta04] C:\Users\Tanuj\.gradle\caches\transforms-3\36a45b2abb854eca36c578fbec6ed4df\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:30:13-37
 122
-123        <provider
-123-->[com.google.firebase:firebase-common:20.3.2] C:\Users\Tanuj\.gradle\caches\transforms-3\868f34f8975a511b9562f40132c95247\transformed\jetified-firebase-common-20.3.2\AndroidManifest.xml:25:9-30:39
-124            android:name="com.google.firebase.provider.FirebaseInitProvider"
-124-->[com.google.firebase:firebase-common:20.3.2] C:\Users\Tanuj\.gradle\caches\transforms-3\868f34f8975a511b9562f40132c95247\transformed\jetified-firebase-common-20.3.2\AndroidManifest.xml:26:13-77
-125            android:authorities="com.example.easypass.firebaseinitprovider"
-125-->[com.google.firebase:firebase-common:20.3.2] C:\Users\Tanuj\.gradle\caches\transforms-3\868f34f8975a511b9562f40132c95247\transformed\jetified-firebase-common-20.3.2\AndroidManifest.xml:27:13-72
-126            android:directBootAware="true"
-126-->[com.google.firebase:firebase-common:20.3.2] C:\Users\Tanuj\.gradle\caches\transforms-3\868f34f8975a511b9562f40132c95247\transformed\jetified-firebase-common-20.3.2\AndroidManifest.xml:28:13-43
-127            android:exported="false"
-127-->[com.google.firebase:firebase-common:20.3.2] C:\Users\Tanuj\.gradle\caches\transforms-3\868f34f8975a511b9562f40132c95247\transformed\jetified-firebase-common-20.3.2\AndroidManifest.xml:29:13-37
-128            android:initOrder="100" />
-128-->[com.google.firebase:firebase-common:20.3.2] C:\Users\Tanuj\.gradle\caches\transforms-3\868f34f8975a511b9562f40132c95247\transformed\jetified-firebase-common-20.3.2\AndroidManifest.xml:30:13-36
-129
-130        <activity
-130-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\Tanuj\.gradle\caches\transforms-3\27ed75583d8888cfd149af38bb71ea35\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:20:9-22:45
-131            android:name="com.google.android.gms.common.api.GoogleApiActivity"
-131-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\Tanuj\.gradle\caches\transforms-3\27ed75583d8888cfd149af38bb71ea35\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:20:19-85
-132            android:exported="false"
-132-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\Tanuj\.gradle\caches\transforms-3\27ed75583d8888cfd149af38bb71ea35\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:22:19-43
-133            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-133-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\Tanuj\.gradle\caches\transforms-3\27ed75583d8888cfd149af38bb71ea35\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:21:19-78
-134
-135        <meta-data
-135-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\Tanuj\.gradle\caches\transforms-3\4c5cefc4bced38f73a0cc4404fde07b9\transformed\jetified-play-services-basement-18.1.0\AndroidManifest.xml:21:9-23:69
-136            android:name="com.google.android.gms.version"
-136-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\Tanuj\.gradle\caches\transforms-3\4c5cefc4bced38f73a0cc4404fde07b9\transformed\jetified-play-services-basement-18.1.0\AndroidManifest.xml:22:13-58
-137            android:value="@integer/google_play_services_version" />
-137-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\Tanuj\.gradle\caches\transforms-3\4c5cefc4bced38f73a0cc4404fde07b9\transformed\jetified-play-services-basement-18.1.0\AndroidManifest.xml:23:13-66
-138    </application>
-139
-140</manifest>
+123        <service
+123-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.2.0] C:\Users\Tanuj\.gradle\caches\transforms-3\825e16ee34ad3b552cf8b00c20717fbf\transformed\jetified-play-services-mlkit-barcode-scanning-18.2.0\AndroidManifest.xml:9:9-15:19
+124            android:name="com.google.mlkit.common.internal.MlKitComponentDiscoveryService"
+124-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.2.0] C:\Users\Tanuj\.gradle\caches\transforms-3\825e16ee34ad3b552cf8b00c20717fbf\transformed\jetified-play-services-mlkit-barcode-scanning-18.2.0\AndroidManifest.xml:10:13-91
+125            android:directBootAware="true"
+125-->[com.google.mlkit:common:18.7.0] C:\Users\Tanuj\.gradle\caches\transforms-3\8ecaffc50439bf3b4dbff733e7b5a389\transformed\jetified-common-18.7.0\AndroidManifest.xml:17:13-43
+126            android:exported="false" >
+126-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.2.0] C:\Users\Tanuj\.gradle\caches\transforms-3\825e16ee34ad3b552cf8b00c20717fbf\transformed\jetified-play-services-mlkit-barcode-scanning-18.2.0\AndroidManifest.xml:11:13-37
+127            <meta-data
+127-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.2.0] C:\Users\Tanuj\.gradle\caches\transforms-3\825e16ee34ad3b552cf8b00c20717fbf\transformed\jetified-play-services-mlkit-barcode-scanning-18.2.0\AndroidManifest.xml:12:13-14:85
+128                android:name="com.google.firebase.components:com.google.mlkit.vision.barcode.internal.BarcodeRegistrar"
+128-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.2.0] C:\Users\Tanuj\.gradle\caches\transforms-3\825e16ee34ad3b552cf8b00c20717fbf\transformed\jetified-play-services-mlkit-barcode-scanning-18.2.0\AndroidManifest.xml:13:17-120
+129                android:value="com.google.firebase.components.ComponentRegistrar" />
+129-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.2.0] C:\Users\Tanuj\.gradle\caches\transforms-3\825e16ee34ad3b552cf8b00c20717fbf\transformed\jetified-play-services-mlkit-barcode-scanning-18.2.0\AndroidManifest.xml:14:17-82
+130            <meta-data
+130-->[com.google.mlkit:vision-common:17.3.0] C:\Users\Tanuj\.gradle\caches\transforms-3\43ed2188a97845b552489ce67f1c5012\transformed\jetified-vision-common-17.3.0\AndroidManifest.xml:12:13-14:85
+131                android:name="com.google.firebase.components:com.google.mlkit.vision.common.internal.VisionCommonRegistrar"
+131-->[com.google.mlkit:vision-common:17.3.0] C:\Users\Tanuj\.gradle\caches\transforms-3\43ed2188a97845b552489ce67f1c5012\transformed\jetified-vision-common-17.3.0\AndroidManifest.xml:13:17-124
+132                android:value="com.google.firebase.components.ComponentRegistrar" />
+132-->[com.google.mlkit:vision-common:17.3.0] C:\Users\Tanuj\.gradle\caches\transforms-3\43ed2188a97845b552489ce67f1c5012\transformed\jetified-vision-common-17.3.0\AndroidManifest.xml:14:17-82
+133            <meta-data
+133-->[com.google.mlkit:common:18.7.0] C:\Users\Tanuj\.gradle\caches\transforms-3\8ecaffc50439bf3b4dbff733e7b5a389\transformed\jetified-common-18.7.0\AndroidManifest.xml:20:13-22:85
+134                android:name="com.google.firebase.components:com.google.mlkit.common.internal.CommonComponentRegistrar"
+134-->[com.google.mlkit:common:18.7.0] C:\Users\Tanuj\.gradle\caches\transforms-3\8ecaffc50439bf3b4dbff733e7b5a389\transformed\jetified-common-18.7.0\AndroidManifest.xml:21:17-120
+135                android:value="com.google.firebase.components.ComponentRegistrar" />
+135-->[com.google.mlkit:common:18.7.0] C:\Users\Tanuj\.gradle\caches\transforms-3\8ecaffc50439bf3b4dbff733e7b5a389\transformed\jetified-common-18.7.0\AndroidManifest.xml:22:17-82
+136        </service>
+137
+138        <provider
+138-->[com.google.mlkit:common:18.7.0] C:\Users\Tanuj\.gradle\caches\transforms-3\8ecaffc50439bf3b4dbff733e7b5a389\transformed\jetified-common-18.7.0\AndroidManifest.xml:9:9-13:38
+139            android:name="com.google.mlkit.common.internal.MlKitInitProvider"
+139-->[com.google.mlkit:common:18.7.0] C:\Users\Tanuj\.gradle\caches\transforms-3\8ecaffc50439bf3b4dbff733e7b5a389\transformed\jetified-common-18.7.0\AndroidManifest.xml:10:13-78
+140            android:authorities="com.example.easypass.mlkitinitprovider"
+140-->[com.google.mlkit:common:18.7.0] C:\Users\Tanuj\.gradle\caches\transforms-3\8ecaffc50439bf3b4dbff733e7b5a389\transformed\jetified-common-18.7.0\AndroidManifest.xml:11:13-69
+141            android:exported="false"
+141-->[com.google.mlkit:common:18.7.0] C:\Users\Tanuj\.gradle\caches\transforms-3\8ecaffc50439bf3b4dbff733e7b5a389\transformed\jetified-common-18.7.0\AndroidManifest.xml:12:13-37
+142            android:initOrder="99" />
+142-->[com.google.mlkit:common:18.7.0] C:\Users\Tanuj\.gradle\caches\transforms-3\8ecaffc50439bf3b4dbff733e7b5a389\transformed\jetified-common-18.7.0\AndroidManifest.xml:13:13-35
+143
+144        <service
+144-->[com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\Tanuj\.gradle\caches\transforms-3\91c0bddc4bd12868dadd29f3705dedcb\transformed\jetified-transport-backend-cct-2.3.3\AndroidManifest.xml:29:9-35:19
+145            android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
+145-->[com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\Tanuj\.gradle\caches\transforms-3\91c0bddc4bd12868dadd29f3705dedcb\transformed\jetified-transport-backend-cct-2.3.3\AndroidManifest.xml:30:13-103
+146            android:exported="false" >
+146-->[com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\Tanuj\.gradle\caches\transforms-3\91c0bddc4bd12868dadd29f3705dedcb\transformed\jetified-transport-backend-cct-2.3.3\AndroidManifest.xml:31:13-37
+147            <meta-data
+147-->[com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\Tanuj\.gradle\caches\transforms-3\91c0bddc4bd12868dadd29f3705dedcb\transformed\jetified-transport-backend-cct-2.3.3\AndroidManifest.xml:32:13-34:39
+148                android:name="backend:com.google.android.datatransport.cct.CctBackendFactory"
+148-->[com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\Tanuj\.gradle\caches\transforms-3\91c0bddc4bd12868dadd29f3705dedcb\transformed\jetified-transport-backend-cct-2.3.3\AndroidManifest.xml:33:17-94
+149                android:value="cct" />
+149-->[com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\Tanuj\.gradle\caches\transforms-3\91c0bddc4bd12868dadd29f3705dedcb\transformed\jetified-transport-backend-cct-2.3.3\AndroidManifest.xml:34:17-36
+150        </service>
+151
+152        <provider
+152-->[com.google.firebase:firebase-common:20.3.2] C:\Users\Tanuj\.gradle\caches\transforms-3\868f34f8975a511b9562f40132c95247\transformed\jetified-firebase-common-20.3.2\AndroidManifest.xml:25:9-30:39
+153            android:name="com.google.firebase.provider.FirebaseInitProvider"
+153-->[com.google.firebase:firebase-common:20.3.2] C:\Users\Tanuj\.gradle\caches\transforms-3\868f34f8975a511b9562f40132c95247\transformed\jetified-firebase-common-20.3.2\AndroidManifest.xml:26:13-77
+154            android:authorities="com.example.easypass.firebaseinitprovider"
+154-->[com.google.firebase:firebase-common:20.3.2] C:\Users\Tanuj\.gradle\caches\transforms-3\868f34f8975a511b9562f40132c95247\transformed\jetified-firebase-common-20.3.2\AndroidManifest.xml:27:13-72
+155            android:directBootAware="true"
+155-->[com.google.firebase:firebase-common:20.3.2] C:\Users\Tanuj\.gradle\caches\transforms-3\868f34f8975a511b9562f40132c95247\transformed\jetified-firebase-common-20.3.2\AndroidManifest.xml:28:13-43
+156            android:exported="false"
+156-->[com.google.firebase:firebase-common:20.3.2] C:\Users\Tanuj\.gradle\caches\transforms-3\868f34f8975a511b9562f40132c95247\transformed\jetified-firebase-common-20.3.2\AndroidManifest.xml:29:13-37
+157            android:initOrder="100" />
+157-->[com.google.firebase:firebase-common:20.3.2] C:\Users\Tanuj\.gradle\caches\transforms-3\868f34f8975a511b9562f40132c95247\transformed\jetified-firebase-common-20.3.2\AndroidManifest.xml:30:13-36
+158
+159        <service
+159-->[androidx.camera:camera-camera2:1.2.2] C:\Users\Tanuj\.gradle\caches\transforms-3\688f1040d37d9bb159df10f1a8ec07da\transformed\jetified-camera-camera2-1.2.2\AndroidManifest.xml:24:9-33:19
+160            android:name="androidx.camera.core.impl.MetadataHolderService"
+160-->[androidx.camera:camera-camera2:1.2.2] C:\Users\Tanuj\.gradle\caches\transforms-3\688f1040d37d9bb159df10f1a8ec07da\transformed\jetified-camera-camera2-1.2.2\AndroidManifest.xml:25:13-75
+161            android:enabled="false"
+161-->[androidx.camera:camera-camera2:1.2.2] C:\Users\Tanuj\.gradle\caches\transforms-3\688f1040d37d9bb159df10f1a8ec07da\transformed\jetified-camera-camera2-1.2.2\AndroidManifest.xml:26:13-36
+162            android:exported="false" >
+162-->[androidx.camera:camera-camera2:1.2.2] C:\Users\Tanuj\.gradle\caches\transforms-3\688f1040d37d9bb159df10f1a8ec07da\transformed\jetified-camera-camera2-1.2.2\AndroidManifest.xml:27:13-37
+163            <meta-data
+163-->[androidx.camera:camera-camera2:1.2.2] C:\Users\Tanuj\.gradle\caches\transforms-3\688f1040d37d9bb159df10f1a8ec07da\transformed\jetified-camera-camera2-1.2.2\AndroidManifest.xml:30:13-32:89
+164                android:name="androidx.camera.core.impl.MetadataHolderService.DEFAULT_CONFIG_PROVIDER"
+164-->[androidx.camera:camera-camera2:1.2.2] C:\Users\Tanuj\.gradle\caches\transforms-3\688f1040d37d9bb159df10f1a8ec07da\transformed\jetified-camera-camera2-1.2.2\AndroidManifest.xml:31:17-103
+165                android:value="androidx.camera.camera2.Camera2Config$DefaultProvider" />
+165-->[androidx.camera:camera-camera2:1.2.2] C:\Users\Tanuj\.gradle\caches\transforms-3\688f1040d37d9bb159df10f1a8ec07da\transformed\jetified-camera-camera2-1.2.2\AndroidManifest.xml:32:17-86
+166        </service>
+167
+168        <activity
+168-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\Tanuj\.gradle\caches\transforms-3\0861465e27f550a84b471cca91b81f1b\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:20:9-22:45
+169            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+169-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\Tanuj\.gradle\caches\transforms-3\0861465e27f550a84b471cca91b81f1b\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:20:19-85
+170            android:exported="false"
+170-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\Tanuj\.gradle\caches\transforms-3\0861465e27f550a84b471cca91b81f1b\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:22:19-43
+171            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+171-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\Tanuj\.gradle\caches\transforms-3\0861465e27f550a84b471cca91b81f1b\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:21:19-78
+172
+173        <meta-data
+173-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\Tanuj\.gradle\caches\transforms-3\4c5cefc4bced38f73a0cc4404fde07b9\transformed\jetified-play-services-basement-18.1.0\AndroidManifest.xml:21:9-23:69
+174            android:name="com.google.android.gms.version"
+174-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\Tanuj\.gradle\caches\transforms-3\4c5cefc4bced38f73a0cc4404fde07b9\transformed\jetified-play-services-basement-18.1.0\AndroidManifest.xml:22:13-58
+175            android:value="@integer/google_play_services_version" />
+175-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\Tanuj\.gradle\caches\transforms-3\4c5cefc4bced38f73a0cc4404fde07b9\transformed\jetified-play-services-basement-18.1.0\AndroidManifest.xml:23:13-66
+176
+177        <service
+177-->[com.google.android.datatransport:transport-runtime:2.2.6] C:\Users\Tanuj\.gradle\caches\transforms-3\fde76e73da03b73416ad72c23fc1b958\transformed\jetified-transport-runtime-2.2.6\AndroidManifest.xml:26:9-30:19
+178            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+178-->[com.google.android.datatransport:transport-runtime:2.2.6] C:\Users\Tanuj\.gradle\caches\transforms-3\fde76e73da03b73416ad72c23fc1b958\transformed\jetified-transport-runtime-2.2.6\AndroidManifest.xml:27:13-117
+179            android:exported="false"
+179-->[com.google.android.datatransport:transport-runtime:2.2.6] C:\Users\Tanuj\.gradle\caches\transforms-3\fde76e73da03b73416ad72c23fc1b958\transformed\jetified-transport-runtime-2.2.6\AndroidManifest.xml:28:13-37
+180            android:permission="android.permission.BIND_JOB_SERVICE" >
+180-->[com.google.android.datatransport:transport-runtime:2.2.6] C:\Users\Tanuj\.gradle\caches\transforms-3\fde76e73da03b73416ad72c23fc1b958\transformed\jetified-transport-runtime-2.2.6\AndroidManifest.xml:29:13-69
+181        </service>
+182
+183        <receiver
+183-->[com.google.android.datatransport:transport-runtime:2.2.6] C:\Users\Tanuj\.gradle\caches\transforms-3\fde76e73da03b73416ad72c23fc1b958\transformed\jetified-transport-runtime-2.2.6\AndroidManifest.xml:32:9-34:40
+184            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
+184-->[com.google.android.datatransport:transport-runtime:2.2.6] C:\Users\Tanuj\.gradle\caches\transforms-3\fde76e73da03b73416ad72c23fc1b958\transformed\jetified-transport-runtime-2.2.6\AndroidManifest.xml:33:13-132
+185            android:exported="false" />
+185-->[com.google.android.datatransport:transport-runtime:2.2.6] C:\Users\Tanuj\.gradle\caches\transforms-3\fde76e73da03b73416ad72c23fc1b958\transformed\jetified-transport-runtime-2.2.6\AndroidManifest.xml:34:13-37
+186    </application>
+187
+188</manifest>

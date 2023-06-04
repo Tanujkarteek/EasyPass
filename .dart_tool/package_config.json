@@ -194,6 +194,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "mobile_scanner",
+      "rootUri": "file:///T:/Program%20Files/flutter_windows_3.3.10-stable/flutter/.pub-cache/hosted/pub.dartlang.org/mobile_scanner-3.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
       "name": "nested",
       "rootUri": "file:///T:/Program%20Files/flutter_windows_3.3.10-stable/flutter/.pub-cache/hosted/pub.dartlang.org/nested-1.0.0",
       "packageUri": "lib/",
@@ -254,6 +260,12 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "pretty_qr_code",
+      "rootUri": "file:///T:/Program%20Files/flutter_windows_3.3.10-stable/flutter/.pub-cache/hosted/pub.dartlang.org/pretty_qr_code-2.0.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.13"
+    },
+    {
       "name": "process",
       "rootUri": "file:///T:/Program%20Files/flutter_windows_3.3.10-stable/flutter/.pub-cache/hosted/pub.dartlang.org/process-4.2.4",
       "packageUri": "lib/",
@@ -264,6 +276,12 @@
       "rootUri": "file:///T:/Program%20Files/flutter_windows_3.3.10-stable/flutter/.pub-cache/hosted/pub.dartlang.org/provider-6.0.5",
       "packageUri": "lib/",
       "languageVersion": "2.12"
+    },
+    {
+      "name": "qr",
+      "rootUri": "file:///T:/Program%20Files/flutter_windows_3.3.10-stable/flutter/.pub-cache/hosted/pub.dartlang.org/qr-3.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
     },
     {
       "name": "shared_preferences",
@@ -386,7 +404,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2023-05-24T04:21:09.717970Z",
+  "generated": "2023-06-03T20:38:35.602923Z",
   "generator": "pub",
   "generatorVersion": "2.18.6"
 }
