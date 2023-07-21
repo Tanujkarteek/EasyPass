@@ -1,9 +1,7 @@
 // ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace
 
-import 'package:easypass/components/vectoreasset.dart';
 import 'package:easypass/screens/signin.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class Welcome extends StatelessWidget {
   static const routeName = '/welcome';
@@ -14,27 +12,9 @@ class Welcome extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: <Widget>[
-          // SvgPicture.asset(
-          //   bgimg,
-          //   height: MediaQuery.of(context).size.height,
-          //   width: MediaQuery.of(context).size.width,
-          //   fit: BoxFit.cover,
-          // ),
           Container(
             decoration: BoxDecoration(
-              // gradient: LinearGradient(
-              //   begin: Alignment.topLeft,
-              //   end: Alignment.bottomRight,
-              //   colors: [
-              //     Color.fromRGBO(44, 224, 171, 1),
-              //     Color.fromRGBO(59, 190, 221, 1)
-              //   ],
-              // ),
               color: Color.fromRGBO(30, 30, 30, 1),
-              // image: DecorationImage(
-              //   image: AssetImage("assets/images/bgimg.png"),
-              //   fit: BoxFit.fill,
-              // ),
             ),
             child: Stack(
               children: <Widget>[
@@ -43,6 +23,7 @@ class Welcome extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      //This is just the welcome page with the logo and the continue button
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.3,
                       ),

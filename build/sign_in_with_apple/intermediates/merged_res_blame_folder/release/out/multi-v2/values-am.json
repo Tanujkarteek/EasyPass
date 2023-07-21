@@ -1,0 +1,68 @@
+{
+    "logs": [
+        {
+            "outputFile": "C:\\Users\\Tanuj\\Desktop\\easypass\\build\\sign_in_with_apple\\intermediates\\merged_res\\release\\values-am\\values-am.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Tanuj\\.gradle\\caches\\transforms-3\\dabcda68851483edc65f4d3af38ff3f1\\transformed\\core-1.6.0\\res\\values-am\\values-am.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "6",
+                        "startColumns": "4",
+                        "startOffsets": "448",
+                        "endColumns": "100",
+                        "endOffsets": "544"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Tanuj\\.gradle\\caches\\transforms-3\\55d0801983bc29a264ae57c2c15369e0\\transformed\\browser-1.2.0\\res\\values-am\\values-am.xml",
+                    "from": {
+                        "startLines": "2,3,4,5",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,151,246,352",
+                        "endColumns": "95,94,105,95",
+                        "endOffsets": "146,241,347,443"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "C:\\Users\\Tanuj\\Desktop\\easypass\\build\\sign_in_with_apple\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-am\\values-am.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Tanuj\\.gradle\\caches\\transforms-3\\dabcda68851483edc65f4d3af38ff3f1\\transformed\\core-1.6.0\\res\\values-am\\values-am.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "6",
+                        "startColumns": "4",
+                        "startOffsets": "448",
+                        "endColumns": "100",
+                        "endOffsets": "544"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Tanuj\\.gradle\\caches\\transforms-3\\55d0801983bc29a264ae57c2c15369e0\\transformed\\browser-1.2.0\\res\\values-am\\values-am.xml",
+                    "from": {
+                        "startLines": "2,3,4,5",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,151,246,352",
+                        "endColumns": "95,94,105,95",
+                        "endOffsets": "146,241,347,443"
+                    }
+                }
+            ]
+        }
+    ]
+}

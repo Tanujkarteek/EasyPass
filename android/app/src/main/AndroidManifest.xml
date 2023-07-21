@@ -2,7 +2,7 @@
     package="com.example.easypass">
     <uses-permission android:name="android.permission.CAMERA"/>
    <application
-        android:label="easypass"
+        android:label="EasyPass"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
