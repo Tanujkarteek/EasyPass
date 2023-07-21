@@ -1,12 +1,15 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, annotate_overrides, use_build_context_synchronously, unused_import, unused_local_variable
 
 import 'package:animated_snack_bar/animated_snack_bar.dart';
-import 'package:easypass/screens/dummy_warden.dart';
+import 'package:easypass/screens/non_using_pages/dummy_warden.dart';
 import 'package:easypass/screens/stud_dashboard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../components/frostedglass.dart';
@@ -20,14 +23,111 @@ class SignIN extends StatefulWidget {
 }
 
 class _SingINState extends State<SignIN> {
+  String? userToken = '';
+  final userdata = GetStorage();
   bool _obscureText = true;
   bool _isLoading = false;
+
   // ignore: non_constant_identifier_names, prefer_typing_uninitialized_variables
   var role_type, user_name, user_email, user_rollno, user_hostel, user_id;
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    requestPermission();
+    getToken();
+    initInfo();
+  }
+
+  void getToken() async {
+    await FirebaseMessaging.instance.getToken().then((token) {
+      setState(() {
+        userToken = token;
+      });
+      debugPrint("Token: $token");
+    });
+  }
+
+  void requestPermission() async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      debugPrint('User granted permission');
+    } else if (settings.authorizationStatus ==
+        AuthorizationStatus.provisional) {
+      debugPrint('User granted provisional permission');
+    } else {
+      debugPrint('User declined or has not accepted permission');
+    }
+  }
+
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+
+  initInfo() {
+    var androidInit = AndroidInitializationSettings('@mipmap/ic_launcher');
+    var iosInit = DarwinInitializationSettings();
+    var initSettings =
+        InitializationSettings(android: androidInit, iOS: iosInit);
+    flutterLocalNotificationsPlugin.initialize(initSettings,
+        onDidReceiveNotificationResponse: onDidReceiveNotificationResponse);
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+      debugPrint('Got a message whilst in the foreground!');
+      debugPrint(
+          'Message data: ${message.notification?.title}\n${message.notification?.body}');
+
+      BigTextStyleInformation bigTextStyleInformation = BigTextStyleInformation(
+        message.notification!.body.toString(),
+        htmlFormatBigText: true,
+        contentTitle: message.notification?.title,
+        htmlFormatContentTitle: true,
+        //summaryText: 'summary',
+        htmlFormatSummaryText: true,
+      );
+      AndroidNotificationDetails androidPlatformChannelSpecifics =
+          AndroidNotificationDetails(
+        'easypass',
+        'easypass',
+        importance: Importance.high,
+        priority: Priority.high,
+        playSound: true,
+        styleInformation: bigTextStyleInformation,
+      );
+      NotificationDetails platformChannelSpecifics =
+          NotificationDetails(android: androidPlatformChannelSpecifics);
+      await flutterLocalNotificationsPlugin.show(
+        0,
+        message.notification!.title,
+        message.notification!.body,
+        platformChannelSpecifics,
+        payload: 'Default_Sound',
+      );
+    });
+  }
+
+  void onDidReceiveNotificationResponse(
+      NotificationResponse notificationResponse) async {
+    final String? payload = notificationResponse.payload;
+    if (notificationResponse.payload != null) {
+      debugPrint('notification payload: $payload');
+    }
+  }
+
   @override
   void dispose() {
     emailController.dispose();
@@ -315,9 +415,11 @@ class _SingINState extends State<SignIN> {
           user_id = user.uid;
           user_name = documentSnapshot.get('name');
           user_email = documentSnapshot.get('email');
+          user_hostel = documentSnapshot.get('hostel');
           role_type = "warden";
+          saveToken();
           saveUser();
-          Navigator.pushReplacementNamed(context, '/dummy_ward');
+          Navigator.pushReplacementNamed(context, '/ward_dash');
         } else if (documentSnapshot.get('role') == "student") {
           // CollectionReference logsCollectionRef =
           //     FirebaseFirestore.instance.collection('logs');
@@ -336,6 +438,7 @@ class _SingINState extends State<SignIN> {
           user_hostel = documentSnapshot.get('hostel');
           role_type = "student";
           saveUser();
+          saveToken();
           Navigator.pushReplacementNamed(context, '/stud_dash');
         } else if (documentSnapshot.get('role') == "guard") {
           user_id = user.uid;
@@ -343,6 +446,7 @@ class _SingINState extends State<SignIN> {
           user_email = documentSnapshot.get('email');
           role_type = "guard";
           saveUser();
+          saveToken();
           Navigator.pushReplacementNamed(context, '/guard_dash');
         }
       } else {
@@ -411,19 +515,32 @@ class _SingINState extends State<SignIN> {
   Future<void> saveUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('type', role_type);
+    userdata.write('type', role_type);
     //if not var are not null or empty only then add that data to shared pref
     prefs.setString('id', user_id);
+    userdata.write('id', user_id);
     if (user_name != null && user_name.isNotEmpty) {
+      userdata.write('name', user_name);
       prefs.setString('name', user_name);
     }
     if (user_email != null && user_email.isNotEmpty) {
+      userdata.write('email', user_email);
       prefs.setString('email', user_email);
     }
     if (user_rollno != null && user_rollno.isNotEmpty) {
+      userdata.write('rollno', user_rollno);
       prefs.setString('rollno', user_rollno);
     }
     if (user_hostel != null && user_hostel.isNotEmpty) {
+      userdata.write('hostel', user_hostel);
       prefs.setString('hostel', user_hostel);
     }
+  }
+
+  void saveToken() async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(user_id)
+        .update({'token': userdata.read('token').toString()});
   }
 }

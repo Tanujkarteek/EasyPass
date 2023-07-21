@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easypass/components/cameraoverlay.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ScannerPage extends StatefulWidget {
@@ -13,9 +17,27 @@ class ScannerPage extends StatefulWidget {
 }
 
 class _ScannerPageState extends State<ScannerPage> {
+  @override
+  void initState() {
+    super.initState();
+    requestPermission();
+  }
+
+  void requestPermission() async {
+    var status = await Permission.camera.status;
+    if (status.isDenied) {
+      await Permission.camera.request();
+    }
+    if (status.isPermanentlyDenied) {
+      openAppSettings();
+    }
+  }
+
   String qr1 = "";
   bool _isScanned = false;
   bool _isFlashOn = false;
+  //bool isAlreadyActive = false;
+  late String userId;
   MobileScannerController controller =
       MobileScannerController(detectionSpeed: DetectionSpeed.noDuplicates);
 
@@ -23,63 +45,175 @@ class _ScannerPageState extends State<ScannerPage> {
     _isScanned = false;
   }
 
+  // Future<void> checkActive() async {
+  //   //create a instance of logs collection and get the document with id of qr1 and assign the value from user_id to a local variable
+  //   DocumentSnapshot doc =
+  //       await FirebaseFirestore.instance.collection('logs').doc(qr1).get();
+  //   var data = doc.data() as Map<String, dynamic>;
+  //   userId = data['user_id'];
+  //   late var logId;
+
+  //   await FirebaseFirestore.instance
+  //       .collection('active')
+  //       .doc(userId)
+  //       .get()
+  //       .then((DocumentSnapshot documentSnapshot) {
+  //     // create a document snapshot of active collection and get the document with id of userId and assign the value from logId to a local variable
+  //     if (documentSnapshot.exists) {
+  //       var active = documentSnapshot.data() as Map<String, dynamic>;
+  //       logId = active['logId'];
+  //     }
+  //     if (documentSnapshot.exists && logId != qr1) {
+  //       //isAlreadyActive = true;
+  //       AnimatedSnackBar.material(
+  //         'One Pass is already active\nClose the previous pass to activate new pass',
+  //         type: AnimatedSnackBarType.error,
+  //         mobileSnackBarPosition: MobileSnackBarPosition.bottom,
+  //       ).show(context);
+  //     }
+  //     if (documentSnapshot.exists && logId == qr1) {
+  //       debugPrint("hehe");
+  //       //isAlreadyActive = false;
+  //       passActivator();
+  //       AnimatedSnackBar.material(
+  //         'Pass is deactivated',
+  //         type: AnimatedSnackBarType.info,
+  //         mobileSnackBarPosition: MobileSnackBarPosition.bottom,
+  //       ).show(context);
+  //     } else {
+  //       debugPrint("hehe");
+  //       //isAlreadyActive = true;
+  //       passActivator();
+  //     }
+  //   });
+  // }
+
   Future<void> passActivator() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? userId = prefs.getString('id');
-    // ignore: unused_local_variable
-    var data =
-        await FirebaseFirestore.instance.collection('logs').doc(qr1).get().then(
+    String? userGuardId = prefs.getString('id');
+
+    DocumentSnapshot doc =
+        await FirebaseFirestore.instance.collection('logs').doc(qr1).get();
+    var data = doc.data() as Map<String, dynamic>;
+    userId = data['user_id'];
+    late String logId;
+
+    DocumentSnapshot documentSnapshot1 =
+        await FirebaseFirestore.instance.collection('active').doc(userId).get();
+    if (documentSnapshot1.exists) {
+      var active = documentSnapshot1.data() as Map<String, dynamic>;
+      logId = active['logId'];
+    }
+
+    // var data =
+    await FirebaseFirestore.instance.collection('logs').doc(qr1).get().then(
       (DocumentSnapshot documentSnapshot) {
         if (documentSnapshot.exists) {
+          if (documentSnapshot1.exists && logId != qr1) {
+            //isAlreadyActive = true;
+            AnimatedSnackBar.material(
+              'One Pass is already active\nClose the previous pass to activate new pass',
+              type: AnimatedSnackBarType.error,
+              mobileSnackBarPosition: MobileSnackBarPosition.bottom,
+            ).show(context);
+          }
           var data = documentSnapshot.data() as Map<String, dynamic>;
-          if (data['status'] == 'approved' && data['isScanned'] == 'no') {
-            //create a document in active with doc id as qr1
-            FirebaseFirestore.instance
-                .collection('active')
-                .doc(qr1)
-                .set({'status': 'active', 'logId': qr1});
-            FirebaseFirestore.instance
-                .collection('logs')
-                .doc(qr1)
-                .update({'isScanned': 'yes'});
-            FirebaseFirestore.instance
-                .collection('logs')
-                .doc(qr1)
-                .update({'guard': userId});
-            AnimatedSnackBar.material(
-              'Pass activated',
-              type: AnimatedSnackBarType.success,
-              mobileSnackBarPosition: MobileSnackBarPosition.bottom,
-            ).show(context);
-          } else if (data['status'] == 'approved' &&
-              data['isScanned'] == 'yes') {
-            //delete the document in active with doc id as qr1
-            FirebaseFirestore.instance.collection('active').doc(qr1).delete();
-            FirebaseFirestore.instance
-                .collection('logs')
-                .doc(qr1)
-                .update({'status': 'used'});
-            AnimatedSnackBar.material(
-              'Pass is deactivated',
-              type: AnimatedSnackBarType.info,
-              mobileSnackBarPosition: MobileSnackBarPosition.bottom,
-            ).show(context);
-          } else if (data['status'] == 'used' && data['isScanned'] == 'yes') {
-            AnimatedSnackBar.material(
-              'Pass is already used',
-              type: AnimatedSnackBarType.info,
-              mobileSnackBarPosition: MobileSnackBarPosition.bottom,
-            ).show(context);
-          } else if (data['status'] == 'pending') {
-            AnimatedSnackBar.material(
-              'Pass is not approved',
-              type: AnimatedSnackBarType.info,
-              mobileSnackBarPosition: MobileSnackBarPosition.bottom,
-            ).show(context);
+          //get the time of the pass
+          var time = data['leaveTime'];
+          var date = data['date'];
+          var userId = data['user_id'];
+
+          //get the current time in 24 hour format
+          var now = DateTime.now();
+          //take day from now
+          var day = now.day;
+          //take month from now
+          var month = now.month;
+          //take year from now
+          var year = now.year;
+          // date is in form of 09-06-2023 converte day month and year to int
+          var date1 = date.split("-");
+          var day1 = int.parse(date1[0]);
+          var month1 = int.parse(date1[1]);
+          var year1 = int.parse(date1[2]);
+
+          //take hour from now
+          var hour = now.hour;
+          //take minute from now
+          var minute = now.minute;
+          // time is in form of 02:00 AM converte hour and minute to int and make it in 24 hour format
+          var time1 = time.split(":");
+          var hour1 = int.parse(time1[0]);
+          var minute1 = int.parse(time1[1].split(" ")[0]);
+          var ampm = time1[1].split(" ")[1];
+          if (ampm == "PM") {
+            hour1 = hour1 + 12;
+          }
+          // print("$hour $minute $day $month $year");
+          // print("$hour1 $minute1 $day1 $month1 $year1");
+          //check if the current time is greater than the pass time
+          if (hour >= hour1 &&
+              minute >= minute1 &&
+              day == day1 &&
+              month == month1 &&
+              year == year1) {
+            if (data['status'] == 'approved' && data['isScanned'] == 'no') {
+              FirebaseFirestore.instance
+                  .collection('active')
+                  .doc(userId)
+                  .set({'status': 'active', 'logId': qr1});
+              FirebaseFirestore.instance
+                  .collection('logs')
+                  .doc(qr1)
+                  .update({'isScanned': 'yes', 'guard': userGuardId});
+              AnimatedSnackBar.material(
+                'Pass activated',
+                type: AnimatedSnackBarType.success,
+                mobileSnackBarPosition: MobileSnackBarPosition.bottom,
+              ).show(context);
+            } else if (data['status'] == 'approved' &&
+                data['isScanned'] == 'yes' &&
+                documentSnapshot1.exists &&
+                logId == qr1) {
+              //delete the document in active with doc id as qr1
+              FirebaseFirestore.instance
+                  .collection('active')
+                  .doc(userId)
+                  .delete();
+              FirebaseFirestore.instance
+                  .collection('logs')
+                  .doc(qr1)
+                  .update({'used': 'yes'});
+              AnimatedSnackBar.material(
+                'Pass is deactivated',
+                type: AnimatedSnackBarType.info,
+                mobileSnackBarPosition: MobileSnackBarPosition.bottom,
+              ).show(context);
+            } else if (data['status'] == 'approved' &&
+                data['isScanned'] == 'yes' &&
+                data['used'] == 'yes') {
+              AnimatedSnackBar.material(
+                'Pass is already used',
+                type: AnimatedSnackBarType.info,
+                mobileSnackBarPosition: MobileSnackBarPosition.bottom,
+              ).show(context);
+            } else if (data['status'] == 'pending') {
+              AnimatedSnackBar.material(
+                'Pass is not approved',
+                type: AnimatedSnackBarType.info,
+                mobileSnackBarPosition: MobileSnackBarPosition.bottom,
+              ).show(context);
+            } else {
+              //print("No pass found random data");
+              AnimatedSnackBar.material(
+                'Pass not found',
+                type: AnimatedSnackBarType.error,
+                mobileSnackBarPosition: MobileSnackBarPosition.bottom,
+              ).show(context);
+            }
           } else {
-            print("No pass found random data");
             AnimatedSnackBar.material(
-              'Pass not found',
+              "Pass can't be activated before the time",
               type: AnimatedSnackBarType.error,
               mobileSnackBarPosition: MobileSnackBarPosition.bottom,
             ).show(context);
@@ -87,13 +221,18 @@ class _ScannerPageState extends State<ScannerPage> {
         } else if (!documentSnapshot.exists) {
           //print("No pass found random data");
           AnimatedSnackBar.material(
-            'Pass not found',
+            'No pass found random data',
             type: AnimatedSnackBarType.error,
             mobileSnackBarPosition: MobileSnackBarPosition.bottom,
           ).show(context);
         }
       },
     );
+  }
+
+  Future<void> delayedPop(BuildContext context) async {
+    await Future.delayed(Duration(seconds: 1));
+    Navigator.pop(context);
   }
 
   @override
@@ -235,7 +374,7 @@ class _ScannerPageState extends State<ScannerPage> {
                               //       MobileSnackBarPosition.bottom,
                               // ).show(context);
 
-                              Navigator.pop(context);
+                              delayedPop(context);
                             }
                             // final List<Barcode> barcodes = capture.barcodes;
                             // //final Uint8List? image = capture.image;
